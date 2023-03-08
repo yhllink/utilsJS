@@ -8,7 +8,7 @@ const srcPath = path.resolve(__dirname, './src')
 const inputPath = path.resolve(srcPath, './index.ts')
 
 let { data: srcList } = readDirSync(srcPath)
-srcList = srcList.filter((name) => name !== 'index.ts')
+srcList = srcList.filter((name) => !['index.ts', '.DS_Store'].includes(name))
 
 let indexStr = ''
 for (let i = 0, l = srcList.length; i < l; i++) {
