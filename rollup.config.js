@@ -21,8 +21,8 @@ for (let i = 0, l = srcList.length; i < l; i++) {
   utilsConfigs.push({
     input: path.resolve(srcPath, name, name + '.ts'),
     output: [
-      { file: path.resolve(pkg.main, '../', name, name + '.js'), format: 'cjs' },
-      { file: path.resolve(pkg.module, '../', name, name + '.js'), format: 'esm' },
+      { file: path.resolve(pkg.main, '../', name, 'index.js'), format: 'cjs' },
+      { file: path.resolve(pkg.module, '../', name, 'index.js'), format: 'esm' },
     ],
     plugins: [
       typescript({

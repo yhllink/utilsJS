@@ -12,14 +12,10 @@ class IndexedDB {
     if (typeof window === 'undefined') return false
     return !!window?.indexedDB
   }
-  static initConfig(config: { [key: string]: { keyPath: string; keys: { [key: string]: { unique: boolean } }[] } }) {
+  static initConfig(config: { [key: string]: { keyPath: string; keys: { [key: string]: { unique: boolean } } } }) {
     for (const storeName in config) {
       if (Object.prototype.hasOwnProperty.call(ObjectStoreConfig, storeName)) {
         return console.error('IndexedDB ' + storeName + ' 仓库已存在')
-      }
-
-      if (config[storeName].keys.length < 1) {
-        return console.error('IndexedDB ' + storeName + ' 仓库必须有一个key')
       }
     }
 
