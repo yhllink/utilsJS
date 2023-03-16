@@ -7,8 +7,6 @@ import * as lossJSON from 'lossless-json'
  */
 const JSONParse = function (str: string): any {
   try {
-    console.log(lossJSON);
-    
     return lossJSON.parse(str, (i, value) => {
       if (value && typeof value === 'object' && 'isLosslessNumber,value' === Object.keys(value).join(',')) {
         // @ts-ignore
