@@ -43,6 +43,20 @@ class IndexedDB {
     dbWeakMap.set(dbItem, this)
   }
 
+  private checkParams(data: Object): boolean {
+    // @ts-ignore
+    const config = ObjectStoreConfig[this.DBname] || {}
+
+    const needKeys = new Set(Object.keys(config?.keys || {}))
+    const hasKeys = Object.keys(data || {})
+
+    for (let i = 0, l = hasKeys.length; i < l; i++) {
+      if (!needKeys.has(hasKeys[i])) return false
+    }
+
+    return true
+  }
+
   private getDB(): Promise<false | IDBDatabase> {
     return new Promise((resolve) => {
       if (this.DB) return resolve(this.DB)
@@ -79,19 +93,17 @@ class IndexedDB {
       }
     })
   }
+  public async getTransaction(mode: IDBTransactionMode) {
+    const DB = await this.getDB()
+    if (!DB) return false
 
-  private checkParams(data: Object): boolean {
-    // @ts-ignore
-    const config = ObjectStoreConfig[this.DBname] || {}
+    return DB.transaction([this.DBname], mode)
+  }
+  public async getStore(mode: IDBTransactionMode) {
+    const transaction = await this.getTransaction(mode)
+    if (!transaction) return false
 
-    const needKeys = new Set(Object.keys(config?.keys || {}))
-    const hasKeys = Object.keys(data || {})
-
-    for (let i = 0, l = hasKeys.length; i < l; i++) {
-      if (!needKeys.has(hasKeys[i])) return false
-    }
-
-    return true
+    return transaction.objectStore(this.DBname)
   }
 
   public async add(data: { [key: string]: any }): Promise<any> {
@@ -105,12 +117,12 @@ class IndexedDB {
       return false
     }
 
-    const DB = await this.getDB()
+    const DB = await this.getStore('readwrite')
     if (!DB) return false
 
     return new Promise((resolve) => {
       // 查询表
-      const request = DB.transaction([this.DBname], 'readwrite').objectStore(this.DBname).add(data)
+      const request = DB.add(data)
 
       // 监听查询成功
       request.onsuccess = function (event) {
@@ -126,12 +138,12 @@ class IndexedDB {
   }
 
   public async delete(keyPath: string | number): Promise<any> {
-    const DB = await this.getDB()
+    const DB = await this.getStore('readwrite')
     if (!DB) return false
 
     return new Promise((resolve) => {
       // 查询表
-      const request = DB.transaction([this.DBname], 'readwrite').objectStore(this.DBname).delete(keyPath)
+      const request = DB.delete(keyPath)
 
       // 监听查询成功
       request.onsuccess = function (event) {
@@ -157,12 +169,12 @@ class IndexedDB {
       return false
     }
 
-    const DB = await this.getDB()
+    const DB = await this.getStore('readwrite')
     if (!DB) return false
 
     return new Promise((resolve) => {
       // 查询表
-      const request = DB.transaction([this.DBname], 'readwrite').objectStore(this.DBname).put(data)
+      const request = DB.put(data)
 
       // 监听查询成功
       request.onsuccess = function (event) {
@@ -178,17 +190,80 @@ class IndexedDB {
   }
 
   public async get(keyPath: string | number): Promise<any> {
-    const DB = await this.getDB()
+    const DB = await this.getStore('readonly')
     if (!DB) return false
 
     return new Promise((resolve) => {
       // 查询表
-      const request = DB.transaction([this.DBname], 'readonly').objectStore(this.DBname).get(keyPath)
+      const request = DB.get(keyPath)
 
       // 监听查询成功
       request.onsuccess = function (event) {
         // @ts-ignore
         resolve(event.target.result)
+      }
+      // 监听查询失败
+      request.onerror = function (event) {
+        // @ts-ignore
+        console.log('Database error: ', event.target.error)
+        resolve(false)
+      }
+    })
+  }
+
+  public async queryKey(query: (key: string) => Promise<boolean> | boolean): Promise<any> {
+    const DB = await this.getStore('readonly')
+    if (!DB) return false
+
+    return new Promise((resolve) => {
+      // 查询表
+      const request = DB.openKeyCursor()
+
+      const queryList: string[] = []
+
+      // 监听查询成功
+      request.onsuccess = async function (event) {
+        // @ts-ignore
+        const cursor = event?.target?.result
+        if (cursor) {
+          const hit = await query(cursor.key)
+          if (hit) queryList.push(cursor.key)
+          cursor.continue()
+        } else {
+          resolve(queryList)
+        }
+      }
+      // 监听查询失败
+      request.onerror = function (event) {
+        // @ts-ignore
+        console.log('Database error: ', event.target.error)
+        resolve(false)
+      }
+    })
+  }
+
+  public async query(query: (key: string, val: any) => Promise<boolean> | boolean): Promise<any> {
+    const DB = await this.getStore('readonly')
+    if (!DB) return false
+
+    return new Promise((resolve) => {
+      // 查询表
+      const request = DB.openCursor()
+
+      const queryList: any[] = []
+
+      // 监听查询成功
+      request.onsuccess = async function (event) {
+        // @ts-ignore
+        const cursor = event?.target?.result
+
+        if (cursor) {
+          const hit = await query(cursor.key, cursor.value)
+          if (hit) queryList.push(cursor.value)
+          cursor.continue()
+        } else {
+          resolve(queryList)
+        }
       }
       // 监听查询失败
       request.onerror = function (event) {
