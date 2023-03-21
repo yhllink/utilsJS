@@ -1,8 +1,10 @@
 const dbList: { DBname: string; version: number }[] = []
 const dbWeakMap = new WeakMap()
 
-type StoreConfigType = { [key: string]: { keyPath: string; keys: { [key: string]: { unique: boolean } } } }
-let ObjectStoreConfig: StoreConfigType = Object.freeze({})
+type StoreConfigType = { keyPath: string; keys: { [key: string]: { unique: boolean } } }
+
+type ObjectStoreConfigType = { [key: string]: StoreConfigType }
+let ObjectStoreConfig: ObjectStoreConfigType = Object.freeze({})
 
 class IndexedDB {
   private DB?: IDBDatabase
@@ -13,16 +15,14 @@ class IndexedDB {
     if (typeof window === 'undefined') return false
     return !!window?.indexedDB
   }
-  static initConfig(config: StoreConfigType) {
-    for (const storeName in config) {
-      if (ObjectStoreConfig[storeName]) {
-        if (JSON.stringify(config[storeName]) !== JSON.stringify(ObjectStoreConfig[storeName])) {
-          return console.error('IndexedDB ' + storeName + ' 仓库已存在')
-        }
+  static initConfig(storeName: string, config: StoreConfigType) {
+    if (ObjectStoreConfig[storeName]) {
+      if (JSON.stringify(config) !== JSON.stringify(ObjectStoreConfig[storeName])) {
+        return console.error('IndexedDB ' + storeName + ' 仓库已存在')
       }
     }
 
-    ObjectStoreConfig = Object.freeze({ ...ObjectStoreConfig, ...config })
+    ObjectStoreConfig = Object.freeze({ ...ObjectStoreConfig, [storeName]: config })
     return true
   }
 
