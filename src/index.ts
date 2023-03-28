@@ -1,8 +1,13 @@
 import Again from './Again/Again'
+import Base64 from './Base64/Base64'
 import IndexedDB from './IndexedDB/IndexedDB'
 import JSONParse from './JSONParse/JSONParse'
+import chunk from './chunk/chunk'
+import deepClone from './deepClone/deepClone'
 import encodeURIZnCh from './encodeURIZnCh/encodeURIZnCh'
 import getOffset from './getOffset/getOffset'
+import getQuery from './getQuery/getQuery'
+import getViewOffset from './getViewOffset/getViewOffset'
 import handleUrl from './handleUrl/handleUrl'
 import ifType from './ifType/ifType'
 import isType from './isType/isType'
@@ -11,4 +16,4 @@ import nextTick from './nextTick/nextTick'
 import prefixInteger from './prefixInteger/prefixInteger'
 import structure from './structure/structure'
 
-export { Again, IndexedDB, JSONParse, encodeURIZnCh, getOffset, handleUrl, ifType, isType, loadModules, nextTick, prefixInteger, structure }
+export { Again, Base64, IndexedDB, JSONParse, chunk, deepClone, encodeURIZnCh, getOffset, getQuery, getViewOffset, handleUrl, ifType, isType, loadModules, nextTick, prefixInteger, structure }
