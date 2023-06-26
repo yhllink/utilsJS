@@ -11,8 +11,15 @@ export default function getOffset(dom: HTMLElement) {
     return offset
   }
 
-  offset.t = dom.offsetTop
-  offset.l = dom.offsetLeft
+  if (!!dom.getBoundingClientRect) {
+    const rect = dom.getBoundingClientRect()
+    offset.t = rect.left
+    offset.l = rect.left
+  } else {
+    offset.t = dom.offsetTop
+    offset.l = dom.offsetLeft
+  }
+
   offset.h = dom.offsetHeight || dom.clientHeight
   offset.w = dom.offsetWidth || dom.clientWidth
 

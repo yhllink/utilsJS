@@ -6,10 +6,14 @@ import encodeURIZnCh from '../encodeURIZnCh/encodeURIZnCh'
  * @returns {string} - base64编码后的字符串
  */
 function btoa(str: string) {
-  if (typeof window !== 'undefined') {
-    return window.btoa(encodeURIZnCh(str))
-  } else {
-    return Buffer.from(str).toString('base64')
+  const newStr = encodeURIZnCh(str)
+
+  if (typeof Buffer !== 'undefined') {
+    return Buffer.from(newStr).toString('base64')
+  }
+
+  if (typeof window !== 'undefined' && typeof window.btoa !== 'undefined') {
+    return window.btoa(newStr)
   }
 }
 
@@ -19,10 +23,12 @@ function btoa(str: string) {
  * @returns {string} - 解码后的普通字符串
  */
 function atob(str: string) {
-  if (typeof window !== 'undefined') {
+  if (typeof Buffer !== 'undefined') {
+    return decodeURIComponent(Buffer.from(str, 'base64').toString('utf-8'))
+  }
+
+  if (typeof window !== 'undefined' && typeof window.atob !== 'undefined') {
     return decodeURIComponent(window.atob(str))
-  } else {
-    return Buffer.from(str, 'base64').toString('utf-8')
   }
 }
 
