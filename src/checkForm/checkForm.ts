@@ -14,9 +14,6 @@ interface Rule {
 }
 
 let messageError: (msg: string) => void
-export const setCheckFormMessage = function (message: (msg: string) => void) {
-  messageError = message
-}
 
 // 表单验证单项
 function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean | { code: 200 | 400; message: string } {
@@ -141,7 +138,7 @@ export interface rulesType {
  * @param {Boolean} 是否自动toast
  * @returns {Object} {code,message} 验证结果
  */
-export default function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { code: 200 | 400; message?: string; inspect?: AnyObj } {
+function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { code: 200 | 400; message?: string; inspect?: AnyObj } {
   // 创建验证结果记录
   const inspect: AnyObj = {}
 
@@ -171,3 +168,9 @@ export default function checkForm(form: Form, rules: rulesType, autoToast: boole
   // 如果所有查询都正确 返回正确结果
   return { code: 200, inspect }
 }
+
+checkForm.setCheckFormMessage = function (message: (msg: string) => void) {
+  messageError = message
+}
+
+export default checkForm

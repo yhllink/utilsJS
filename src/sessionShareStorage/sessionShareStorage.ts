@@ -7,6 +7,7 @@ const sessionShareStorage: {
   clear: Storage['clear']
   key: Storage['key']
   length: () => Storage['length']
+  getOtherPageStore: () => void
 } = (function () {
   if (isServer) {
     return Object.freeze({
@@ -16,6 +17,7 @@ const sessionShareStorage: {
       setItem(key: string, value: string) {},
       removeItem(key: string) {},
       clear() {},
+      getOtherPageStore() {},
     })
   }
 
@@ -45,6 +47,9 @@ const sessionShareStorage: {
       channel.postMessage({ type: 'clear' })
       return window.sessionStorage.clear()
     },
+    getOtherPageStore() {
+      channel.postMessage({ type: 'getAll', rid: pageRid })
+    },
   })
 
   channel.onmessage = function (e) {
@@ -60,14 +65,7 @@ const sessionShareStorage: {
     }
   }
 
-  window.addEventListener(
-    'load',
-    function () {
-      channel.postMessage({ type: 'getAll', rid: pageRid })
-    },
-    { once: true }
-  )
-
+  sessionShareStorage.getOtherPageStore()
   return sessionShareStorage
 })()
 

@@ -1,7 +1,6 @@
 import path from 'path'
 import typescript from 'rollup-plugin-typescript2'
 import { readDirSync, writeFileSync } from 'yhl-explorer-js'
-import dts from 'rollup-plugin-dts'
 
 import pkg from './package.json'
 
@@ -38,10 +37,8 @@ for (let i = 0, l = srcList.length; i < l; i++) {
   })
 }
 indexStr += `\nexport { ${srcList.join(', ')} }`
-// indexStr += `\nexport default { ${srcList.join(', ')} }`
 writeFileSync(inputPath, indexStr)
 
-console.log(utilsConfigs[2])
 export default [
   {
     input: inputPath,
