@@ -67,7 +67,7 @@ const sessionShareStorage: {
         data: JSON.parse(
           JSON.stringify(window.sessionStorage, function (key, val) {
             if (key.indexOf(shareName) === 0) return val
-          })
+          }) ?? '{}'
         ),
       })
     }
