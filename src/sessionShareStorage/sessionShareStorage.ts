@@ -61,15 +61,11 @@ const sessionShareStorage: {
     if (data?.type === 'clear') window.sessionStorage.clear()
 
     if (data?.type === 'getAll') {
-      channel.postMessage({
-        type: 'setAll',
-        rid: data.rid,
-        data: JSON.parse(
-          JSON.stringify(window.sessionStorage, function (key, val) {
-            if (key.indexOf(shareName) === 0) return val
-          }) ?? '{}'
-        ),
-      })
+      const data = JSON.parse(JSON.stringify(window.sessionStorage) ?? '{}')
+      for (const key in data) {
+        if (key.indexOf(shareName) !== 0) delete data[key]
+      }
+      channel.postMessage({ type: 'setAll', rid: data.rid, data })
     }
     if (data?.type === 'setAll' && data.rid === pageRid) {
       for (const key in data.data) {
