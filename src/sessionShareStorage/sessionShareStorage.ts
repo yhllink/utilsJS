@@ -60,14 +60,14 @@ const sessionShareStorage: {
     if (data?.type === 'removeItem') window.sessionStorage.removeItem(shareName + data.key)
     if (data?.type === 'clear') window.sessionStorage.clear()
 
-    if (data?.type === 'getAll') {
-      const data = JSON.parse(JSON.stringify(window.sessionStorage) ?? '{}')
-      for (const key in data) {
-        if (key.indexOf(shareName) !== 0) delete data[key]
+    if (data?.type === 'getAll' && data?.rid && data.rid !== pageRid) {
+      const storage = JSON.parse(JSON.stringify(window.sessionStorage) ?? '{}')
+      for (const key in storage) {
+        if (key.indexOf(shareName) !== 0) delete storage[key]
       }
-      channel.postMessage({ type: 'setAll', rid: data.rid, data })
+      channel.postMessage({ type: 'setAll', rid: data.rid, data: storage })
     }
-    if (data?.type === 'setAll' && data.rid === pageRid) {
+    if (data?.type === 'setAll' && data?.rid === pageRid) {
       for (const key in data.data) {
         if (key.indexOf(shareName) === 0) window.sessionStorage.setItem(key, data.data[key])
       }
