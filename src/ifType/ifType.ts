@@ -3,6 +3,7 @@ import isType from '../isType/isType'
 function ifTypeItem(type: any, data: any) {
   if (typeof type === 'string') {
     const trueType = isType(data)
+    // @ts-ignore
     return type === trueType || type?.name === trueType
   }
 
