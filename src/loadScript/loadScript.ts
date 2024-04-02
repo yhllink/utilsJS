@@ -1,6 +1,6 @@
 import isServer from '../isServer/isServer'
 
-async function loadScript(src: string, id: string) {
+async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
   if (isServer) return false
 
   if (window.document.querySelector('#' + id)) return true
@@ -9,6 +9,8 @@ async function loadScript(src: string, id: string) {
     setTimeout(() => {
       const script = window.document.createElement('script')
       script.id = id
+      if (load === 'defer') script.setAttribute('defer', '')
+      if (load === 'async') script.setAttribute('async', '')
       script.onload = function () {
         resolve(true)
       }

@@ -1,7 +1,7 @@
 {
   "name": "yhl-utils",
-  "version": "0.1.18",
-  "description": "",
+  "version": "0.1.19",
+  "description": "yaohanlin",
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "lib/index.d.ts",
@@ -25,7 +25,7 @@
     "@rollup/plugin-babel": "^6.0.3",
     "@rollup/plugin-node-resolve": "^15.0.1",
     "@rollup/plugin-typescript": "^11.0.0",
-    "@types/node": "^18.15.10",
+    "@types/node": "^18.19.28",
     "rollup": "^2.79.1",
     "rollup-plugin-dts": "^4.2.3",
     "rollup-plugin-typescript2": "^0.32.0",

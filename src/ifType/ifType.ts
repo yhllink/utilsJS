@@ -1,8 +1,16 @@
 import isType from '../isType/isType'
 
 function ifTypeItem(type: any, data: any) {
-  const trueType = isType(data)
-  return type === trueType || type?.name === trueType || type === data
+  if (typeof type === 'string') {
+    const trueType = isType(data)
+    return type === trueType || type?.name === trueType
+  }
+
+  if (type === 'Array' || type === Array) {
+    return Array.isArray(data)
+  }
+
+  return data instanceof type
 }
 
 /**

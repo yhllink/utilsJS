@@ -1,8 +1,11 @@
 import path from 'path'
 import typescript from 'rollup-plugin-typescript2'
-import { readDirSync, writeFileSync } from 'yhl-explorer-js'
+import { readDirSync, writeFileSync, deletePathSync } from 'yhl-explorer-js'
 
 import pkg from './package.json'
+
+deletePathSync(pkg.main)
+deletePathSync(pkg.module)
 
 const srcPath = path.resolve(__dirname, './src')
 const inputPath = path.resolve(srcPath, './index.ts')
