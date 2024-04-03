@@ -2,7 +2,7 @@ import * as lossJSON from 'lossless-json'
 
 /**
  * 解析 json字符串 （解决大整数精度丢失问题）
- * @param str json字符串
+ * @param {string} str json字符串
  * @returns json解出来的数据
  */
 const JSONParse = function (str: string): any {

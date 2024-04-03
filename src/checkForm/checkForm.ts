@@ -126,8 +126,8 @@ export interface rulesType {
  * 表单验证
  *
  * @export
- * @param {Object} form={} 数据
- * @param {Object} 规则
+ * @param {Form} form={} 数据
+ * @param {rulesType} 规则
  *  key : [{
  *    type:[数据类型|'phone','any','email','telephone',Array],
  *    message:提示文案,
@@ -135,8 +135,8 @@ export interface rulesType {
  *    minLength:数字|字符串|数组最小长度,
  *    maxLength:数字|字符串|数组最大长度
  *  }]
- * @param {Boolean} 是否自动toast
- * @returns {Object} {code,message} 验证结果
+ * @param {boolean} 是否自动toast
+ * @returns {Object} {code:200|400,message:错误提示,inspect:验证结果}
  */
 function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { code: 200 | 400; message?: string; inspect?: AnyObj } {
   // 创建验证结果记录

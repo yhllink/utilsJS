@@ -1,7 +1,8 @@
 /**
  * $modules 加载模块
- * @param {Function} modulesFn Promise:加载模块函数(()=>import('yhl-explorer-js')
- * @param {Function} cb 加载完成回调
+ * @param {() => Promise<any>} modulesFn Promise:加载模块函数(()=>import('yhl-explorer-js')
+ * @param {(modules: P) => void} cb 加载完成回调
+ * @returns {Promise<P>}
  */
 export default function loadModules<P>(modulesFn: () => Promise<any>, cb?: (modules: P) => void): Promise<P> {
   return new Promise(async (resolve) => {

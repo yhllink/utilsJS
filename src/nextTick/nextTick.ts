@@ -1,6 +1,6 @@
 /**
  * 类 Vue 的 nextTick
- * @param func 回调函数
+ * @param {Function} func 回调函数
  */
 function nextTick(func: Function) {
   if (typeof Promise !== 'undefined') {

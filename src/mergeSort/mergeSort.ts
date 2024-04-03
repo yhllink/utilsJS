@@ -1,8 +1,8 @@
 /**
  * 归并排序
- * @param arr
- * @param sort
- * @returns
+ * @param {any[]} arr
+ * @param {(left: any, right: any) => number} sort
+ * @returns {any[]}
  */
 function mergeSort(arr: any[], sort?: (left: any, right: any) => number): any[] {
   if (arr.length <= 1) {

@@ -1,7 +1,12 @@
-const csvDataHandle = function <T>(
-  csv: string,
-  option?: { keysObj?: { [key: string]: string }; middle?: (key: string, val: string) => any; filter?: (item: AnyObj) => boolean }
-) {
+type Option = { keysObj?: { [key: string]: string }; middle?: (key: string, val: string) => any; filter?: (item: AnyObj) => boolean }
+
+/**
+ * 处理csv数据
+ * @param {string} csv csv字符串数据
+ * @param {Option} option 配置项
+ * @returns {AnyObj[]} 返回处理后的数据
+ */
+const csvDataHandle = function <T>(csv: string, option?: Option) {
   const csvList = csv.split('\n')
 
   const arr: AnyObj[] = []

@@ -1,5 +1,6 @@
 /**
  * 获取视口宽高
+ * @returns {Object} {w, h}
  */
 const getViewOffset = function () {
   const body = window.document.body

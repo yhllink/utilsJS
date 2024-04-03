@@ -1,5 +1,10 @@
 import isServer from '../isServer/isServer'
 
+/**
+ * 加载js
+ * @param {{id: string, src: string, load?: 'default' | 'defer' | 'async'}} param 配置项
+ * @returns {Promise<boolean>}
+ */
 async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
   if (isServer) return false
 

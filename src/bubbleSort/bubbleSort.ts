@@ -1,8 +1,8 @@
 /**
  * 冒泡排序
- * @param arr 
- * @param sort 
- * @returns 
+ * @param { any[] } arr 需要排序的数组
+ * @param sort 排序规则
+ * @returns { any[] } 排序后的数组
  */
 function bubbleSort(arr: any[], sort?: (item: any) => number): any[] {
   const length = arr.length

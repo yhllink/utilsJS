@@ -1,8 +1,8 @@
 /**
  * 快排
- * @param arr 
- * @param sort 
- * @returns 
+ * @param {any[]} arr
+ * @param {(item: any) => number} sort
+ * @returns {any[]}
  */
 function quickSort(arr: any[], sort?: (item: any) => number): any[] {
   if (arr.length <= 1) {

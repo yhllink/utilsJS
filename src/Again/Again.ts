@@ -25,11 +25,7 @@ class Again {
    * @param {Number} count 循环最大次数 -1 为无限循环
    * @param {Number} time 循环间隔时间
    */
-  constructor(
-    Fn: (index: number) => Promise<any>,
-    count: number = 5,
-    time: number = 50
-  ) {
+  constructor(Fn: (index: number) => Promise<any>, count: number = 5, time: number = 50) {
     this.Fn = Fn
     this.count = count
     this.$count = count
@@ -38,21 +34,25 @@ class Again {
     this.stopData = { code: -1, message: '未开始' }
   }
 
+  /**
+   * 重新开始执行
+   */
   public restart: () => void = () => {
     this.count = this.$count
     this.start()
   }
 
-  public stop: () => void = (
-    data: StopData = { code: 401, message: '手动结束', data: {} }
-  ) => {
+  /**
+   * 停止执行
+   * @param data {code: -1 | 200 | 401 | 400, message: string, data: any}
+   */
+  public stop: () => void = (data: StopData = { code: 401, message: '手动结束', data: {} }) => {
     this.stopData = data
     this.open = false
   }
 
   /**
    * 开始执行
-   * @returns
    */
   public start = () => {
     const fn: Promise<StopData> = new Promise((resolve) => {

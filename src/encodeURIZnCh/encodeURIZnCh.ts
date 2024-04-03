@@ -1,7 +1,7 @@
 /**
  * 将url中的中文转义为 url 编码
- * @param url 转义前的url
- * @returns 转义后的URL
+ * @param {string} url 转义前的url
+ * @returns {string} 转义后的URL
  */
 export default function encodeURIZnCh(url: string): string {
   const zz = url.match(
