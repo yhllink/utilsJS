@@ -1,9 +1,10 @@
 {
   "name": "yhl-utils",
-  "version": "0.1.22",
+  "version": "0.1.24",
   "description": "yaohanlin",
-  "main": "lib/index.js",
-  "module": "es/index.js",
+  "main": "./lib/index.js",
+  "module": "./es/index.js",
+  "typings": "./lib/index.d.ts",
   "exports": {
     ".": {
       "import": {
@@ -16,7 +17,10 @@
       }
     }
   },
-  "typings": "lib/index.d.ts",
+  "files": [
+    "./es/*",
+    "./lib/*"
+  ],
   "scripts": {
     "dev": "node ./build/build.js",
     "build": "rollup -c"
