@@ -1,6 +1,6 @@
 {
   "name": "yhl-utils",
-  "version": "0.1.24",
+  "version": "0.1.25",
   "description": "yaohanlin",
   "main": "./lib/index.js",
   "module": "./es/index.js",
@@ -35,6 +35,9 @@
     "url": "https://github.com/yhllink/utilsJS/issues"
   },
   "homepage": "https://github.com/yhllink/utilsJS#readme",
+  "dependencies": {
+    "lossless-json": "^2.0.8"
+  },
   "devDependencies": {
     "@babel/core": "^7.21.0",
     "@babel/preset-env": "^7.20.2",
@@ -47,8 +50,5 @@
     "rollup-plugin-typescript2": "^0.32.0",
     "tslib": "^2.4.0",
     "yhl-explorer-js": "^0.0.7"
-  },
-  "peerDependencies": {
-    "lossless-json": "^2.0.8"
   }
 }

@@ -1,38 +1,30 @@
 import isServer from '../isServer/isServer'
 
-const sessionShareStorage: {
-  setItem: Storage['setItem']
-  getItem: Storage['getItem']
-  removeItem: Storage['removeItem']
-  clear: Storage['clear']
-  key: Storage['key']
-  length: () => Storage['length']
-  getOtherPageStore: () => void
-} = (function () {
+const sessionShareStorage = (function () {
   if (isServer) {
     return Object.freeze({
       key: (index: number) => '',
       getItem: (key: string) => '',
-      length: () => 0,
+      length: 0,
       setItem(key: string, value: string) {},
       removeItem(key: string) {},
       clear() {},
       getOtherPageStore() {},
-    })
+    } as Storage)
   }
 
   const shareName = 'share-'
   const pageRid = 'rid-' + Math.floor(Math.random() * 100000000)
   const channel = new BroadcastChannel('sessionShareStorage')
 
-  const sessionShareStorage = Object.freeze({
+  const sessionShareStorage: Storage = Object.freeze({
     key(index: number) {
       return window.sessionStorage.key(index)
     },
     getItem(key: string) {
       return window.sessionStorage.getItem(shareName + key)
     },
-    length() {
+    get length() {
       return window.sessionStorage.length
     },
 
