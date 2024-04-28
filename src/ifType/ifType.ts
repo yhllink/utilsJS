@@ -1,8 +1,6 @@
 import isType from '../isType/isType'
 
 function ifTypeItem(type: any, data: any) {
-  if (type === data) return true
-
   if (typeof type === 'string') {
     const trueType = isType(data)
     // @ts-ignore
@@ -13,7 +11,15 @@ function ifTypeItem(type: any, data: any) {
     return Array.isArray(data)
   }
 
-  return data instanceof type
+  if (typeof type === 'function') {
+    try {
+      return data instanceof type
+    } catch (error) {
+      return false
+    }
+  }
+
+  return type === data
 }
 
 /**
