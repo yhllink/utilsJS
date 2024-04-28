@@ -1,25 +1,28 @@
 import isType from '../isType/isType'
 
 function ifTypeItem(type: any, data: any) {
-  if (typeof type === 'string') {
-    const trueType = isType(data)
-    // @ts-ignore
-    return type === trueType || type?.name === trueType
-  }
+  const trueType = isType(data)
+  return type === trueType || type?.name === trueType || type === data
 
-  if (type === 'Array' || type === Array) {
-    return Array.isArray(data)
-  }
+  // if (typeof type === 'string') {
+  //   const trueType = isType(data)
+  //   // @ts-ignore
+  //   return type === trueType || type?.name === trueType
+  // }
 
-  if (typeof type === 'function') {
-    try {
-      return data instanceof type
-    } catch (error) {
-      return false
-    }
-  }
+  // if (type === 'Array' || type === Array) {
+  //   return Array.isArray(data)
+  // }
 
-  return type === data
+  // if (typeof type === 'function') {
+  //   try {
+  //     return data instanceof type
+  //   } catch (error) {
+  //     return false
+  //   }
+  // }
+
+  // return type === data
 }
 
 /**
