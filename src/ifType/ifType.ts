@@ -1,6 +1,8 @@
 import isType from '../isType/isType'
 
 function ifTypeItem(type: any, data: any) {
+  if (type === data) return true
+
   if (typeof type === 'string') {
     const trueType = isType(data)
     // @ts-ignore
