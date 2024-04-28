@@ -1,6 +1,6 @@
 {
   "name": "yhl-utils",
-  "version": "0.1.27",
+  "version": "0.1.28",
   "description": "yaohanlin",
   "main": "./lib/index.js",
   "module": "./es/index.js",

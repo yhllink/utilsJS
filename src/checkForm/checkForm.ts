@@ -27,7 +27,11 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
   const { type, minLength, maxLength } = rule
 
   // any 规则 不为空
-  if (type === 'any') return !ifType(['', undefined, null, NaN], data)
+  if (type === 'any') {
+    if (typeof data === 'number') return !isNaN(data)
+    if (data) return data
+    return !!data
+  }
 
   // Array 验证数组并且不为空
   if (type === Array && minLength === undefined && maxLength === undefined) return !!(Array.isArray(data) && data.length)
