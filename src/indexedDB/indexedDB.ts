@@ -185,7 +185,7 @@ class IndexedDB {
    * @param {{ [key: string]: any } data 要添加的数据
    * @returns {Promise<boolean>}
    */
-  public async add(data: { [key: string]: any }): Promise<any> {
+  public async add(data: { [key: string]: any }): Promise<boolean> {
     if (!Object.keys(data || {}).length) {
       console.error('参数检查失败 参数不能为空')
       return false
@@ -221,7 +221,7 @@ class IndexedDB {
    * @param {string | number} keyPath 仓库对应行主键
    * @returns {Promise<boolean>}
    */
-  public async delete(keyPath: string | number): Promise<any> {
+  public async delete(keyPath: string | number): Promise<boolean> {
     const DB = await this.getStore('readwrite')
     if (!DB) return false
 
@@ -247,7 +247,7 @@ class IndexedDB {
    * @param {{ [key: string]: any }} data 要修改的数据
    * @returns {Promise<boolean>}
    */
-  public async put(data: { [key: string]: any }): Promise<any> {
+  public async put(data: { [key: string]: any }): Promise<boolean> {
     if (!Object.keys(data || {}).length) {
       console.error('参数检查失败 参数不能为空')
       return false
@@ -308,9 +308,9 @@ class IndexedDB {
   /**
    * 主键指针对象查询数据 // 只读权限
    * @param {(key: string) => Promise<boolean> | boolean} query 查询条件
-   * @returns {Promise<any>}
+   * @returns {Promise<string[] | boolean>}
    */
-  public async queryKey(query: (key: string) => Promise<boolean> | boolean): Promise<any> {
+  public async queryKey(query: (key: string) => Promise<boolean> | boolean): Promise<string[] | boolean> {
     const DB = await this.getStore('readonly')
     if (!DB) return false
 
@@ -344,9 +344,9 @@ class IndexedDB {
   /**
    * 指针对象查询数据 // 只读权限
    * @param {(key: string, val: any) => Promise<boolean> | boolean} query 查询条件
-   * @returns {Promise<any>}
+   * @returns {Promise<any[]|boolean>}
    */
-  public async query(query: (key: string, val: any) => Promise<boolean> | boolean): Promise<any> {
+  public async query(query: (key: string, val: any) => Promise<boolean> | boolean): Promise<any[] | boolean> {
     const DB = await this.getStore('readonly')
     if (!DB) return false
 
