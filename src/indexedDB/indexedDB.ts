@@ -138,6 +138,49 @@ class IndexedDB {
   }
 
   /**
+   * 删除仓库
+   * @returns {Promise<boolean>}
+   */
+  public async delDB(): Promise<boolean> {
+    const DB = await this.getStore('readonly')
+    if (!DB) return false
+
+    return new Promise((resolve) => {
+      const deleteRequest = window.indexedDB.deleteDatabase(this.DBname)
+
+      deleteRequest.onsuccess = function () {
+        resolve(true)
+      }
+
+      deleteRequest.onerror = function () {
+        resolve(false)
+      }
+    })
+  }
+
+  /**
+   * 清空仓库数据
+   * @returns {Promise<boolean>}
+   */
+  public async clear(): Promise<boolean> {
+    const DB = await this.getStore('readwrite')
+    if (!DB) return false
+
+    return new Promise((resolve) => {
+      // 删除对象存储
+      var request = DB.clear()
+
+      request.onsuccess = function () {
+        resolve(true)
+      }
+
+      request.onerror = function () {
+        resolve(false)
+      }
+    })
+  }
+
+  /**
    * 添加数据 // 只写权限
    * @param {{ [key: string]: any } data 要添加的数据
    * @returns {Promise<boolean>}
