@@ -13,7 +13,7 @@ function getOffset(dom: HTMLElement) {
 
   if (!!dom.getBoundingClientRect) {
     const rect = dom.getBoundingClientRect()
-    offset.t = rect.left
+    offset.t = rect.top
     offset.l = rect.left
   } else {
     offset.t = dom.offsetTop
