@@ -2,7 +2,7 @@
  * 获取视口宽高
  * @returns {Object} {w, h}
  */
-const getViewOffset = function () {
+export default function getViewOffset() {
   const body = window.document.body
   const documentElement = window.document.documentElement
 
@@ -22,4 +22,3 @@ const getViewOffset = function () {
 
   return { w, h }
 }
-export default getViewOffset

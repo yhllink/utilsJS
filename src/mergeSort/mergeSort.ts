@@ -1,10 +1,10 @@
 /**
  * 归并排序
  * @param {any[]} arr
- * @param {(left: any, right: any) => number} sort
+ * @param getVal 获取排序字段
  * @returns {any[]}
  */
-function mergeSort(arr: any[], sort?: (left: any, right: any) => number): any[] {
+export default function mergeSort(arr: any[], getVal?: (item: any) => number): any[] {
   if (arr.length <= 1) {
     return arr
   }
@@ -19,7 +19,7 @@ function mergeSort(arr: any[], sort?: (left: any, right: any) => number): any[] 
     // 从 left 和 right 区域中各个取出第一个元素，比较它们的大小
     while (l < left.length && r < right.length) {
       // 将较小的元素添加到result中，然后从较小元素所在的区域内取出下一个元素，继续进行比较；
-      if (sort ? sort(left[l], right[r]) : left[l] < right[r]) {
+      if (getVal ? getVal(left[l]) < getVal(right[r]) : left[l] < right[r]) {
         result.push(left[l])
         l++
       } else {
@@ -33,6 +33,5 @@ function mergeSort(arr: any[], sort?: (left: any, right: any) => number): any[] 
     return result
   }
 
-  return merge(mergeSort(left, sort), mergeSort(right, sort))
+  return merge(mergeSort(left, getVal), mergeSort(right, getVal))
 }
-export default mergeSort

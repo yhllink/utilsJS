@@ -5,7 +5,7 @@ import isServer from '../isServer/isServer'
  * @param {{id: string, src: string, load?: 'default' | 'defer' | 'async'}} param 配置项
  * @returns {Promise<boolean>}
  */
-async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
+export default async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
   if (isServer) return false
 
   if (window.document.querySelector('#' + id)) return true
@@ -28,4 +28,3 @@ async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'de
     }, 600)
   })
 }
-export default loadScript

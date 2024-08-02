@@ -3,7 +3,7 @@
  * @param {any} obj 需要拷贝的对象
  * @returns {any} 拷贝后的新对象
  */
-function deepClone(obj: any) {
+export default function deepClone(obj: any) {
   // 创建一个 Map 来存储已经复制过的对象
   const copiedObjects = new Map()
   // 创建一个队列来迭代遍历待复制对象的属性
@@ -37,5 +37,3 @@ function deepClone(obj: any) {
 
   return copiedObjects.get(obj)
 }
-
-export default deepClone

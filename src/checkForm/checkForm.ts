@@ -1,4 +1,4 @@
-import ifType from '../ifType/ifType'
+import hasVal from '../hasVal/hasVal'
 import structure from '../structure/structure'
 
 type Form = AnyObj
@@ -25,9 +25,10 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
 
   // 获取规则类型
   const { type, minLength, maxLength } = rule
+  if (Array.isArray(type)) return false
 
   // any 规则 不为空
-  if (type === 'any') return !ifType(['', undefined, null, NaN], data)
+  if (type === 'any') return !hasVal(data)
 
   // Array 验证数组并且不为空
   if (type === Array && minLength === undefined && maxLength === undefined) return !!(Array.isArray(data) && data.length)
@@ -59,7 +60,8 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
   }
 
   // 验证数据类型
-  return ifType(type, data)
+  // @ts-ignore
+  return data instanceof type
 }
 
 // 遍历验证

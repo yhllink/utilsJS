@@ -1,4 +1,8 @@
+import hasVal from '../hasVal/hasVal'
+
 function structureItem(key: string, data: object, defaultVal: any) {
+  if (key === '') return data ?? defaultVal
+
   try {
     const wind: { [key: string]: any } = window
 
@@ -6,7 +10,8 @@ function structureItem(key: string, data: object, defaultVal: any) {
     wind['data_' + name] = data
     window.eval(`window.val_${name} = window.data_${name}.${key}`)
     const value = wind['val_' + name]
-    wind['data_' + name] = wind['val_' + name] = null
+    wind['val_' + name] = null
+    wind['data_' + name] = null
     return value
   } catch (error) {}
 
@@ -32,7 +37,7 @@ export default function structure(keys: string, data: object, defaultVal: any = 
 
   for (let i = 0, l = keys.length; i < l; i++) {
     const val = structureItem(keys[i], data, false)
-    if (val) return val
+    if (hasVal(val)) return val
   }
 
   return defaultVal

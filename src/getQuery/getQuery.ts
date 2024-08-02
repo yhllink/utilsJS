@@ -3,7 +3,7 @@
  * @param {string} url 需要解析的URL，默认为当前页面URL
  * @returns {object} 解析后的参数对象
  */
-function getQuery(url = window.location.href) {
+export default function getQuery(url = window.location.href) {
   const search = url.split('?')[1] || ''
   const hash = url.split('#')[1] || ''
   const queryArr = [...search.split('&'), ...hash.split('&')]
@@ -16,4 +16,3 @@ function getQuery(url = window.location.href) {
   })
   return queryObj
 }
-export default getQuery

@@ -6,7 +6,7 @@ type Option = { keysObj?: { [key: string]: string }; middle?: (key: string, val:
  * @param {Option} option 配置项
  * @returns {AnyObj[]} 返回处理后的数据
  */
-const csvDataHandle = function <T>(csv: string, option?: Option) {
+export default function csvDataHandle<T = AnyObj>(csv: string, option?: Option): T[] {
   const csvList = csv.split('\n')
 
   const arr: AnyObj[] = []
@@ -29,4 +29,3 @@ const csvDataHandle = function <T>(csv: string, option?: Option) {
 
   return arr as T[]
 }
-export default csvDataHandle
