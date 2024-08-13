@@ -28,7 +28,7 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
   if (Array.isArray(type)) return false
 
   // any 规则 不为空
-  if (type === 'any') return !hasVal(data)
+  if (type === 'any') return !['', undefined, null, NaN].includes(data)
 
   // Array 验证数组并且不为空
   if (type === Array && minLength === undefined && maxLength === undefined) return !!(Array.isArray(data) && data.length)
