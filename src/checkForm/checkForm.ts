@@ -1,4 +1,3 @@
-import hasVal from '../hasVal/hasVal'
 import structure from '../structure/structure'
 
 type Form = AnyObj
