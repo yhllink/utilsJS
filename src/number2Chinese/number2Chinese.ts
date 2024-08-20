@@ -1,7 +1,13 @@
+// 定义数字到中文数字的映射
 const chineseNums = ['零', '一', '二', '三', '四', '五', '六', '七', '八', '九']
+// 定义中文数字的单位
 const chineseUnits = ['', '十', '百', '千', '万', '亿']
 
-// 将数字转换为中文数字
+/**
+ * 将数字转换为中文数字
+ * @param num 需要转换的数字
+ * @returns 转换后的中文数字字符串
+ */
 function toChinese(num: number) {
   const numStr = num.toString()
   const len = numStr.length
@@ -33,6 +39,12 @@ function toChinese(num: number) {
 
   return chineseStr
 }
+
+/**
+ * 将数字转换为中文数字，支持负数
+ * @param num 需要转换的数字
+ * @returns 转换后的中文数字字符串
+ */
 export default function number2Chinese(num: number) {
   if (num < 0) {
     return '负' + toChinese(Math.abs(num))

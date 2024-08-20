@@ -1,8 +1,11 @@
 import structure from '../structure/structure'
 
+// 定义表单类型为任意对象
 type Form = AnyObj
+// 定义规则类型包括any、phone、email、telephone和函数类型
 type RuleType = 'any' | 'phone' | 'email' | 'telephone' | Function
 
+// 定义验证规则接口
 interface Rule {
   type?: RuleType | RuleType[] | Function
   message?: string
@@ -12,9 +15,18 @@ interface Rule {
   maxLength?: number
 }
 
+// 定义错误消息回调函数类型
 let messageError: (msg: string) => void
 
-// 表单验证单项
+// 表单验证单项函数
+/**
+ * 验证表单的单项
+ * @param key 表单项的键
+ * @param form 表单数据
+ * @param data 表单项的数据
+ * @param rule 表单项的验证规则
+ * @returns 返回布尔值表示验证是否通过，或返回包含状态码和消息的对象
+ */
 function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean | { code: 200 | 400; message: string } {
   // 如果是自定义规则
   if (typeof rule.custom === 'function') {
@@ -35,7 +47,7 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
   // phone 验证手机号
   if (type === 'phone') return /^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(String(data))
 
-  // phone 验证手机号
+  // telephone 验证座机号
   if (type === 'telephone') return /^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$/.test(String(data))
 
   // email 验证邮箱
@@ -63,7 +75,14 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
   return data instanceof type
 }
 
-// 遍历验证
+// 遍历验证规则项函数
+/**
+ * 遍历验证规则项
+ * @param rule 规则项，可以是字符串、规则对象或规则数组
+ * @param form 表单数据
+ * @param key 表单项的键
+ * @param autoToast 是否自动显示toast提示
+ */
 function checkRuleItem(rule: string | Rule, form: Form, key: string, autoToast: boolean) {
   // 将不是对象规则变更为 对象
   switch (typeof rule) {
@@ -119,25 +138,17 @@ function checkRuleItem(rule: string | Rule, form: Form, key: string, autoToast: 
   return { code: 200, inspect }
 }
 
+// 定义规则类型，可以是字符串、规则对象或规则数组
 export interface rulesType {
   [key: string]: string | Rule | Rule[] | ((key: string, data: any, form: Form) => string | void)
 }
 
 /**
- * 表单验证
- *
- * @export
- * @param {Form} form={} 数据
- * @param {rulesType} 规则
- *  key : [{
- *    type:[数据类型|'phone','any','email','telephone',Array],
- *    message:提示文案,
- *    custom:自定义验证方法,返回message,
- *    minLength:数字|字符串|数组最小长度,
- *    maxLength:数字|字符串|数组最大长度
- *  }]
- * @param {boolean} 是否自动toast
- * @returns {Object} {code:200|400,message:错误提示,inspect:验证结果}
+ * 表单验证函数
+ * @param form 表单数据
+ * @param rules 表单验证规则
+ * @param autoToast 是否自动显示toast提示
+ * @returns 返回包含状态码、错误提示和验证结果的对象
  */
 function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { code: 200 | 400; message?: string; inspect?: AnyObj } {
   // 创建验证结果记录
@@ -170,6 +181,7 @@ function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { c
   return { code: 200, inspect }
 }
 
+// 设置错误消息回调函数
 checkForm.setCheckFormMessage = function (message: (msg: string) => void) {
   messageError = message
 }

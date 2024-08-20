@@ -22,7 +22,6 @@
     "./lib/*"
   ],
   "scripts": {
-    "dev": "node ./build/build.js",
     "build": "rollup -c"
   },
   "repository": {

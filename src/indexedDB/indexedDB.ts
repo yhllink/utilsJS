@@ -1,30 +1,30 @@
+// 定义一个数组来保存数据库列表
 const dbList: { DBname: string; version: number }[] = []
+// 使用 WeakMap 来保存数据库实例
 const dbWeakMap = new WeakMap()
 
-type StoreConfigType = { keyPath: string; keys: { [key: string]: { unique: boolean } } }
+// 定义仓库配置类型
+type StoreConfigType = {
+  keyPath: string
+  keys: { [key: string]: { unique: boolean } }
+}
 
+// 冻结仓库配置对象以避免修改
 let ObjectStoreConfig: { [key: string]: StoreConfigType } = Object.freeze({})
 
+// IndexedDB 类
 class IndexedDB {
-  private DB?: IDBDatabase
-  private DBname: string
-  private version: number
+  private DB?: IDBDatabase // 私有属性，用于保存数据库实例
+  private DBname: string // 数据库名称
+  private version: number // 数据库版本
 
-  /**
-   * 判断当前是否支持IndexedDB
-   * @returns {boolean}
-   */
+  // 静态方法，判断当前环境是否支持 IndexedDB
   static hasDB(): boolean {
     if (typeof window === 'undefined') return false
     return !!window?.indexedDB
   }
 
-  /**
-   * 初始化仓库参数
-   * @param {string} storeName 仓库名称
-   * @param {StoreConfigType} config 仓库配置参数
-   * @returns
-   */
+  // 初始化仓库参数的静态方法
   static initConfig(storeName: string, config: StoreConfigType) {
     if (ObjectStoreConfig[storeName]) {
       if (JSON.stringify(config) !== JSON.stringify(ObjectStoreConfig[storeName])) {
@@ -36,12 +36,7 @@ class IndexedDB {
     return true
   }
 
-  /**
-   * 创建仓库
-   * @param {string} DBname 仓库名称
-   * @param {number} version 仓库版本
-   * @returns
-   */
+  // 构造函数，用于创建 IndexedDB 实例
   constructor(DBname: string, version: number = 1) {
     if (!Object.prototype.hasOwnProperty.call(ObjectStoreConfig, DBname)) {
       throw new Error(`没有配置 数据库 ${DBname}`)
@@ -62,8 +57,8 @@ class IndexedDB {
     dbWeakMap.set(dbItem, this)
   }
 
+  // 检查传入数据是否符合配置要求的私有方法
   private checkParams(data: Object): boolean {
-    // @ts-ignore
     const config = ObjectStoreConfig[this.DBname] || {}
 
     const needKeys = new Set(Object.keys(config?.keys || {}))
@@ -76,6 +71,7 @@ class IndexedDB {
     return true
   }
 
+  // 获取或打开数据库的私有方法
   private getDB(): Promise<false | IDBDatabase> {
     return new Promise((resolve) => {
       if (this.DB) return resolve(this.DB)
@@ -113,11 +109,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 获取事务
-   * @param {IDBTransactionMode} mode 事务连接类型
-   * @returns 事物实例
-   */
+  // 获取事务的公共异步方法
   public async getTransaction(mode: IDBTransactionMode) {
     const DB = await this.getDB()
     if (!DB) return false
@@ -125,11 +117,7 @@ class IndexedDB {
     return DB.transaction([this.DBname], mode)
   }
 
-  /**
-   * 获取仓库
-   * @param {IDBTransactionMode} mode 仓库连接类型
-   * @returns 仓库实例
-   */
+  // 获取对象存储的公共异步方法
   public async getStore(mode: IDBTransactionMode) {
     const transaction = await this.getTransaction(mode)
     if (!transaction) return false
@@ -137,10 +125,7 @@ class IndexedDB {
     return transaction.objectStore(this.DBname)
   }
 
-  /**
-   * 删除仓库
-   * @returns {Promise<boolean>}
-   */
+  // 删除数据库的公共异步方法
   public async delDB(): Promise<boolean> {
     const DB = await this.getStore('readonly')
     if (!DB) return false
@@ -158,10 +143,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 清空仓库数据
-   * @returns {Promise<boolean>}
-   */
+  // 清空对象存储的公共异步方法
   public async clear(): Promise<boolean> {
     const DB = await this.getStore('readwrite')
     if (!DB) return false
@@ -180,11 +162,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 添加数据 // 只写权限
-   * @param {{ [key: string]: any } data 要添加的数据
-   * @returns {Promise<boolean>}
-   */
+  // 添加数据的公共异步方法（只写权限）
   public async add(data: { [key: string]: any }): Promise<boolean> {
     if (!Object.keys(data || {}).length) {
       console.error('参数检查失败 参数不能为空')
@@ -216,11 +194,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 删除数据 // 读写权限
-   * @param {string | number} keyPath 仓库对应行主键
-   * @returns {Promise<boolean>}
-   */
+  // 删除数据的公共异步方法（读写权限）
   public async delete(keyPath: string | number): Promise<boolean> {
     const DB = await this.getStore('readwrite')
     if (!DB) return false
@@ -242,11 +216,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 修改数据 // 读写权限
-   * @param {{ [key: string]: any }} data 要修改的数据
-   * @returns {Promise<boolean>}
-   */
+  // 修改数据的公共异步方法（读写权限）
   public async put(data: { [key: string]: any }): Promise<boolean> {
     if (!Object.keys(data || {}).length) {
       console.error('参数检查失败 参数不能为空')
@@ -278,11 +248,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 查询数据 // 只读权限
-   * @param {string | number} keyPath 仓库对应行主键
-   * @returns {Promise<any>}
-   */
+  // 查询数据的公共异步方法（只读权限）
   public async get(keyPath: string | number): Promise<any> {
     const DB = await this.getStore('readonly')
     if (!DB) return false
@@ -305,11 +271,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 主键指针对象查询数据 // 只读权限
-   * @param {(key: string) => Promise<boolean> | boolean} query 查询条件
-   * @returns {Promise<string[] | boolean>}
-   */
+  // 主键指针对象查询数据的公共异步方法（只读权限）
   public async queryKey(query: (key: string) => Promise<boolean> | boolean): Promise<string[] | boolean> {
     const DB = await this.getStore('readonly')
     if (!DB) return false
@@ -341,11 +303,7 @@ class IndexedDB {
     })
   }
 
-  /**
-   * 指针对象查询数据 // 只读权限
-   * @param {(key: string, val: any) => Promise<boolean> | boolean} query 查询条件
-   * @returns {Promise<any[]|boolean>}
-   */
+  // 指针对象查询数据的公共异步方法（只读权限）
   public async query(query: (key: string, val: any) => Promise<boolean> | boolean): Promise<any[] | boolean> {
     const DB = await this.getStore('readonly')
     if (!DB) return false
@@ -379,4 +337,5 @@ class IndexedDB {
   }
 }
 
+// 导出 IndexedDB 类
 export default IndexedDB

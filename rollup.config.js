@@ -54,10 +54,10 @@ for (let i = 0, l = lazyList.length; i < l; i++) {
         verbosity: 0,
         useTsconfigDeclarationDir: true,
         tsconfig: path.resolve(__dirname, 'tsconfig.json'),
-        cacheRoot: path.resolve(__dirname, 'node_modules/.rts2_cache'),
         tsconfigOverride: { compilerOptions: { target: 'es5' } },
       }),
     ],
+    external: (id) => !/^(src\/.*)/.test(id) && !id.startsWith('.'), // 外部依赖项不会被包含在打包结果中
   })
 }
 
@@ -72,10 +72,10 @@ export default [
       typescript({
         verbosity: 0,
         tsconfig: path.resolve(__dirname, 'tsconfig.json'),
-        cacheRoot: path.resolve(__dirname, 'node_modules/.rts2_cache'),
         tsconfigOverride: { compilerOptions: { target: 'es5' }, include: ['src'] },
       }),
     ],
+    external: (id) => !/^(src\/.*)/.test(id) && !id.startsWith('.'), // 外部依赖项不会被包含在打包结果中
   },
   ...utilsConfigs,
 ]

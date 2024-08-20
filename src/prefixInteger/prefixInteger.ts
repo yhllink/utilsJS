@@ -5,5 +5,6 @@
  * @returns {String}
  */
 export default function prefixInteger(str: string | number, length: number): string {
+  // 使用padStart方法将字符串或数字前置补位到指定长度，使用'0'进行补位
   return String(str).padStart(length, '0')
 }
