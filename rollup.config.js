@@ -1,6 +1,6 @@
 import path from 'path'
 import typescript from 'rollup-plugin-typescript2'
-import { readDirSync, writeFileSync, deletePathSync } from 'yhl-explorer-js'
+import { readDirSync, writeFileSync, readFileSync, deletePathSync } from 'yhl-explorer-js'
 
 import pkg from './package.json'
 
@@ -61,6 +61,24 @@ for (let i = 0, l = lazyList.length; i < l; i++) {
   })
 }
 
+setTimeout(() => {
+  writeFileSync(
+    path.resolve(__dirname, './README.md'),
+    [
+      '# ' + pkg.name + '\n\n',
+
+      ...srcList.map((name) => {
+        const { data } = readFileSync(path.resolve(__dirname, './es', name, name + '.d.ts'))
+
+        console.log(data)
+        console.log(name)
+
+        return `### ${name}\n` + '```typescript\n' + data + '\n```\n\n'
+      }),
+    ].join('')
+  )
+}, 1000)
+
 export default [
   {
     input: inputPath,
@@ -77,5 +95,5 @@ export default [
       }),
     ],
   },
-  ...utilsConfigs,
+  // ...utilsConfigs,
 ]
