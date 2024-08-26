@@ -1,6 +1,14 @@
 # yhl-utils
 
+
 ### Again
+
+导入
+```typescript
+import { Again } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 interface StopData {
     code: -1 | 200 | 401 | 400;
@@ -44,6 +52,13 @@ export default Again;
 ```
 
 ### Base64
+
+导入
+```typescript
+import { Base64 } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 将字符串编码为 Base64 格式
@@ -66,6 +81,13 @@ export default Base64;
 ```
 
 ### IndexedDB
+
+导入
+```typescript
+import { IndexedDB } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 type StoreConfigType = {
     keyPath: string;
@@ -104,6 +126,13 @@ export default IndexedDB;
 ```
 
 ### IntersectionObserver
+
+导入
+```typescript
+import { IntersectionObserver } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * `OneIntersectionObserver`类用于观察元素与浏览器视口的交集情况
@@ -141,7 +170,39 @@ export default class OneIntersectionObserver {
 
 ```
 
+### JSONParse
+
+导入
+```typescript
+import { JSONParse } from 'yhl-utils'
+```
+
+类型定义
+```typescript
+/**
+ * 解析 json字符串 （解决大整数和小数精度丢失问题）
+ * @param {string} str json字符串
+ * @returns {Promise<any>} json解出来的数据
+ */
+declare const JSONParse: {
+    (str: string): any;
+    init(): boolean;
+} | {
+    (str: string): any;
+    init(): Promise<boolean>;
+};
+export default JSONParse;
+
+```
+
 ### LimitConcurrentPromise
+
+导入
+```typescript
+import { LimitConcurrentPromise } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 export default class LimitConcurrentPromise {
     private list;
@@ -155,6 +216,13 @@ export default class LimitConcurrentPromise {
 ```
 
 ### OneAsyncFunctionManage
+
+导入
+```typescript
+import { OneAsyncFunctionManage } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 export default class OneAsyncFunctionManage {
     private status;
@@ -176,6 +244,13 @@ export default class OneAsyncFunctionManage {
 ```
 
 ### PubSub
+
+导入
+```typescript
+import { PubSub } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 type Event = Exclude<any, null | undefined>;
 type CallbackType = (...i: any) => void;
@@ -209,6 +284,13 @@ export default _default;
 ```
 
 ### bubbleSort
+
+导入
+```typescript
+import { bubbleSort } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 出口默认的冒泡排序函数
@@ -221,6 +303,13 @@ export default function bubbleSort(arr: any[], getVal?: (item: any) => number): 
 ```
 
 ### checkForm
+
+导入
+```typescript
+import { checkForm } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 type Form = AnyObj;
 type RuleType = 'any' | 'phone' | 'email' | 'telephone' | Function;
@@ -255,6 +344,13 @@ export default checkForm;
 ```
 
 ### chunk
+
+导入
+```typescript
+import { chunk } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 将数组分割为指定大小的子数组
@@ -268,6 +364,13 @@ export default function chunk(arr: any[], size: number): any[][];
 ```
 
 ### classNames
+
+导入
+```typescript
+import { classNames } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 type ClassNameListType = string | ClassNameListType[] | {
     [key: string]: boolean;
@@ -284,6 +387,13 @@ export {};
 ```
 
 ### csvDataHandle
+
+导入
+```typescript
+import { csvDataHandle } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 type Option = {
     keysObj?: {
@@ -305,6 +415,13 @@ export {};
 ```
 
 ### deepClone
+
+导入
+```typescript
+import { deepClone } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 深拷贝函数
@@ -316,6 +433,13 @@ export default function deepClone(obj: any): any;
 ```
 
 ### devicePixelRatio
+
+导入
+```typescript
+import { devicePixelRatio } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 获取设备的设备像素比（DPR）
@@ -332,6 +456,13 @@ export default devicePixelRatio;
 ```
 
 ### encodeURIZnCh
+
+导入
+```typescript
+import { encodeURIZnCh } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 将url中的中文转义为 url 编码
@@ -343,6 +474,13 @@ export default function encodeURIZnCh(url: string): string;
 ```
 
 ### formatAmount
+
+导入
+```typescript
+import { formatAmount } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 计算金额
@@ -360,6 +498,13 @@ export default function formatAmount(money: string | number, options?: {
 ```
 
 ### formatNumber
+
+导入
+```typescript
+import { formatNumber } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 格式化数字，保留指定位数的小数
@@ -376,6 +521,13 @@ export default function formatNumber(value: string | number, decimalPlaces?: num
 ```
 
 ### getFunBack
+
+导入
+```typescript
+import { getFunBack } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 该函数用于处理各种类型的返回值，确保最终返回一个Promise对象。
@@ -389,6 +541,13 @@ export default function getFunBack<T = any>(data: any): Promise<T>;
 ```
 
 ### getOffset
+
+导入
+```typescript
+import { getOffset } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 获取DOM元素的偏移量
@@ -408,6 +567,13 @@ export default function getOffset(dom: HTMLElement): {
 ```
 
 ### getQuery
+
+导入
+```typescript
+import { getQuery } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 获取URL和hash中的参数并转换为对象
@@ -421,6 +587,13 @@ export default function getQuery(url?: string): {
 ```
 
 ### getViewOffset
+
+导入
+```typescript
+import { getViewOffset } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 获取视口宽高
@@ -439,6 +612,13 @@ export default function getViewOffset(): {
 ```
 
 ### handleUrl
+
+导入
+```typescript
+import { handleUrl } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 处理url中的路径问题 （添加前缀）
@@ -454,6 +634,13 @@ export default function handleUrl(url: string): string;
 ```
 
 ### hasVal
+
+导入
+```typescript
+import { hasVal } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 判断是否有值
@@ -471,6 +658,13 @@ export default function hasVal(data: any): boolean;
 ```
 
 ### isServer
+
+导入
+```typescript
+import { isServer } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 declare const _default: boolean;
 export default _default;
@@ -478,22 +672,37 @@ export default _default;
 ```
 
 ### loadModules
+
+导入
 ```typescript
+import { loadModules } from 'yhl-utils'
+```
+
+类型定义
+```typescript
+type OptionType<P> = {
+    cb?: (modules: P) => void;
+    modules?: string | false;
+};
 /**
  * 加载模块
- *
  * 本函数通过动态导入（Promise）的方式加载模块，提供了一个灵活的模块加载机制。
  * 它允许异步加载模块，并在模块加载完成后执行回调函数，提高了代码的模块化和可维护性。
- *
- * @param {() => Promise<any>} modulesFn 一个返回 Promise 的函数，用于加载模块（例如动态导入模块） eg. loadModules(()=>import('yhl-explorer-js'))
- * @param {(modules: P) => void} cb 模块加载完成后的回调函数，接收加载的模块作为参数
- * @returns {Promise<P>} 返回一个 Promise，Promise 解析后的值为加载的模块
  */
-export default function loadModules<P>(modulesFn: () => Promise<any>, cb?: (modules: P) => void): Promise<P>;
+declare function loadModules<P = any>(modulesFn: () => Promise<any>, option?: OptionType<P>): Promise<P>;
+declare function loadModules<P = any>(modulesFn: () => Promise<any>, option?: OptionType<P>['cb']): Promise<P>;
+export default loadModules;
 
 ```
 
 ### loadScript
+
+导入
+```typescript
+import { loadScript } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 动态加载JavaScript文件
@@ -516,6 +725,13 @@ export default function loadScript({ id, src, load }: {
 ```
 
 ### mergeSort
+
+导入
+```typescript
+import { mergeSort } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 归并排序
@@ -528,6 +744,13 @@ export default function mergeSort(arr: any[], getVal?: (item: any) => number): a
 ```
 
 ### number2Chinese
+
+导入
+```typescript
+import { number2Chinese } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 将数字转换为中文数字，支持负数
@@ -539,6 +762,13 @@ export default function number2Chinese(num: number): string;
 ```
 
 ### number2ChineseWeek
+
+导入
+```typescript
+import { number2ChineseWeek } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 将数字转换为对应的中文星期
@@ -553,6 +783,13 @@ export default function number2ChineseWeek(week: number, sundayStr?: string): st
 ```
 
 ### prefixInteger
+
+导入
+```typescript
+import { prefixInteger } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 向字符串前面补位0
@@ -565,6 +802,13 @@ export default function prefixInteger(str: string | number, length: number): str
 ```
 
 ### quickSort
+
+导入
+```typescript
+import { quickSort } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 快排
@@ -577,6 +821,13 @@ export default function quickSort(arr: any[], getVal?: (item: any) => number): a
 ```
 
 ### sessionShareStorage
+
+导入
+```typescript
+import { sessionShareStorage } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 declare const sessionShareStorage: Storage;
 export default sessionShareStorage;
@@ -584,6 +835,13 @@ export default sessionShareStorage;
 ```
 
 ### structure
+
+导入
+```typescript
+import { structure } from 'yhl-utils'
+```
+
+类型定义
 ```typescript
 /**
  * 根据给定的键列表和数据对象，获取指定键的数据
@@ -598,3 +856,5 @@ export default function structure(keys: string | string[], data: object, default
 
 ```
 
+
+## lazy 懒加载的模块
