@@ -45,7 +45,7 @@ function toChinese(num: number) {
  * @param num 需要转换的数字
  * @returns 转换后的中文数字字符串
  */
-export default function number2Chinese(num: number) {
+export function number2Chinese(num: number) {
   if (num < 0) {
     return '负' + toChinese(Math.abs(num))
   } else {

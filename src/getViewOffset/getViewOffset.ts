@@ -7,7 +7,7 @@
  *
  * @returns {Object} 返回一个包含视口宽度和高度的对象 {w, h}
  */
-export default function getViewOffset() {
+export function getViewOffset() {
   // 获取body和documentElement对象
   const body = window.document.body
   const documentElement = window.document.documentElement

@@ -7,7 +7,7 @@
  * @param {string} url 待处理的url
  * @return {string} 处理后的url，如果输入为空或以协议头或双斜线开头，则原样返回，否则添加双斜线前缀
  */
-export default function handleUrl(url: string): string {
+export function handleUrl(url: string): string {
   // 如果url为空，则直接返回空字符串
   if (!url) return ''
 

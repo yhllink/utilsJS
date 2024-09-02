@@ -6,7 +6,7 @@
  * @param dom 要获取偏移量的DOM元素
  * @returns 返回一个包含元素上边距、左边距、宽度和高度的对象
  */
-export default function getOffset(dom: HTMLElement) {
+export function getOffset(dom: HTMLElement) {
   // 初始化偏移量对象，用于存储计算结果
   const offset: { w?: number; h?: number; t?: number; l?: number } = {}
 

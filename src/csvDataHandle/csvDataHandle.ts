@@ -7,7 +7,7 @@ type Option = { keysObj?: { [key: string]: string }; middle?: (key: string, val:
  * @param option 可选配置对象，包含键映射、中间处理函数和过滤器
  * @returns 返回处理后的对象数组
  */
-export default function csvDataHandle<T = AnyObj>(csv: string, option?: Option): T[] {
+export function csvDataHandle<T = AnyObj>(csv: string, option?: Option): T[] {
   // 将CSV字符串按行分割成数组
   const csvList = csv.split('\n')
 

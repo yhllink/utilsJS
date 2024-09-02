@@ -1,5 +1,5 @@
 // 导入加载模块的函数
-import loadModules from '@/src/loadModules/loadModules'
+import { loadModules } from '@/src/loadModules/loadModules'
 
 // 定义一个全局的解析函数变量
 let parse: any
@@ -9,7 +9,7 @@ let parse: any
  * @param {string} str json字符串
  * @returns {Promise<any>} json解出来的数据
  */
-const JSONParse = (function () {
+export const JSONParse = (function () {
   // 判断浏览器是否支持源代码解析函数的标志
   let hasSource = false
 
@@ -57,5 +57,3 @@ const JSONParse = (function () {
   // 根据浏览器是否支持源代码解析函数，返回对应的解析方法
   return hasSource ? JSONParse_has : JSONParse_noHas
 })()
-
-export default JSONParse

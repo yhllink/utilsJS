@@ -4,7 +4,7 @@
  * @param getVal 获取排序字段的函数，可选
  * @returns {any[]} 排序后的数组
  */
-export default function quickSort(arr: any[], getVal?: (item: any) => number): any[] {
+export function quickSort(arr: any[], getVal?: (item: any) => number): any[] {
   // 如果数组长度小于等于1，直接返回数组
   if (arr.length <= 1) return arr
 

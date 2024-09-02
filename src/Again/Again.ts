@@ -8,7 +8,7 @@ interface StopData {
 /**
  * Again类，用于循环执行直到获得正确结果或达到循环次数
  */
-class Again {
+export class Again {
   private Fn: (index: number) => Promise<any> // 循环执行的函数
   private count: number // 剩余循环次数
   private $count: number // 总循环次数
@@ -98,5 +98,3 @@ class Again {
     })
   }
 }
-
-export default Again

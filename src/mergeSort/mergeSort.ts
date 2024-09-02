@@ -4,7 +4,7 @@
  * @param getVal 获取排序字段的函数，可选
  * @returns {any[]} 排序后的数组
  */
-export default function mergeSort(arr: any[], getVal?: (item: any) => number): any[] {
+export function mergeSort(arr: any[], getVal?: (item: any) => number): any[] {
   // 当数组长度小于等于1时，不需要排序，直接返回
   if (arr.length <= 1) {
     return arr

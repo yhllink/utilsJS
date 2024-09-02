@@ -3,7 +3,7 @@
  * 当元素与视口发生交集时，会调用回调函数`setShow`来通知调用者
  * 支持一次性观察和重复观察两种模式
  */
-export default class OneIntersectionObserver {
+export class OneIntersectionObserver {
   // 存储被观察元素及其回调函数和是否只观察一次的标志
   private map: Map<Element, { setShow: (show: boolean) => void; once: boolean }> = new Map()
   // `IntersectionObserver`实例，用于实际的交集观察

@@ -8,7 +8,7 @@
  * @param decimalPlaces 保留的小数位数，默认为2
  * @returns 格式化后的数值字符串，如果输入值无效则原样返回
  */
-export default function formatNumber(value: string | number, decimalPlaces: number = 2) {
+export function formatNumber(value: string | number, decimalPlaces: number = 2) {
   // 将输入值转换为浮点数，以便后续处理
   const numValue = parseFloat(String(value))
   // 检查转换后的值是否为有效的数字，如果不是则返回原始值

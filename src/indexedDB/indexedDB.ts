@@ -338,4 +338,4 @@ class IndexedDB {
 }
 
 // 导出 IndexedDB 类
-export default IndexedDB
+export { IndexedDB }

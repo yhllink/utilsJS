@@ -7,7 +7,7 @@ type ClassNameListType = string | ClassNameListType[] | { [key: string]: boolean
  * @param {...ClassNameListType[]} list 一个或多个类名的字符串、数组或对象
  * @returns {string} 返回一个合并后的类名字符串
  */
-export default function classNames(...list: ClassNameListType[]): string {
+export function classNames(...list: ClassNameListType[]): string {
   const classList = [] // 初始化一个空数组来存储最终的类名
 
   // 循环遍历传入的所有参数

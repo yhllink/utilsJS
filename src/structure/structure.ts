@@ -1,4 +1,4 @@
-import hasVal from '../hasVal/hasVal'
+import { hasVal } from '../hasVal/hasVal'
 
 /**
  * 根据给定的键获取对象中的数据项
@@ -50,7 +50,7 @@ function structureItem(key: string, data: object, defaultVal: any) {
  * @param {any} defaultVal - 如果无法获取数据项时的默认值
  * @returns {any} - 获取到的数据项或默认值
  */
-export default function structure(keys: string | string[], data: object, defaultVal: any = undefined) {
+export function structure(keys: string | string[], data: object, defaultVal: any = undefined) {
   // 如果keys不是数组，直接调用structureItem函数处理
   if (!Array.isArray(keys)) return structureItem(keys, data, defaultVal)
 

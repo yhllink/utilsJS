@@ -106,4 +106,4 @@ window.addEventListener('storage', function (e) {
 sessionShareStorage.getOtherPageStore()
 
 // 导出会话共享存储对象，供其他模块使用
-export default sessionShareStorage
+export { sessionShareStorage }

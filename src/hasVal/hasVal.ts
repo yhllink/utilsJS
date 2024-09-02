@@ -9,6 +9,6 @@
  * @param {any} data - 待检查的数据可以是任何类型
  * @returns {boolean} - 返回布尔值，如果data有值，则返回true；否则返回false
  */
-export default function hasVal(data: any) {
+export function hasVal(data: any) {
   return (data ?? '1j*$@#234i@#!') !== '1j*$@#234i@#!'
 }

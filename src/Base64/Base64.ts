@@ -1,5 +1,5 @@
 // 导入用于编码 URI 组件的函数
-import encodeURIZnCh from '../encodeURIZnCh/encodeURIZnCh'
+import { encodeURIZnCh } from '../encodeURIZnCh/encodeURIZnCh'
 
 /**
  * 将字符串编码为 Base64 格式
@@ -39,5 +39,4 @@ function atob(str: string) {
 }
 
 // 将 btoa 和 atob 函数作为对象导出，以便在其他模块中使用
-const Base64 = { btoa, atob }
-export default Base64
+export const Base64 = { btoa, atob }

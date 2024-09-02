@@ -5,7 +5,7 @@
  * @param data - 任意类型的输入数据，可以是函数、Promise或其他类型。
  * @returns 返回一个Promise对象，其解析或拒绝的结果取决于输入数据的类型。
  */
-export default function getFunBack<T = any>(data: any): Promise<T> {
+export function getFunBack<T = any>(data: any): Promise<T> {
   // 检查输入数据是否为函数类型。
   if (typeof data === 'function') {
     // 如果是函数类型，立即调用该函数，并将其返回值传递给getFunBack处理。

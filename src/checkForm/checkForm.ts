@@ -1,4 +1,4 @@
-import structure from '../structure/structure'
+import { structure } from '../structure/structure'
 
 // 定义表单类型为任意对象
 type Form = AnyObj
@@ -150,7 +150,7 @@ export interface rulesType {
  * @param autoToast 是否自动显示toast提示
  * @returns 返回包含状态码、错误提示和验证结果的对象
  */
-function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { code: 200 | 400; message?: string; inspect?: AnyObj } {
+export function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { code: 200 | 400; message?: string; inspect?: AnyObj } {
   // 创建验证结果记录
   const inspect: AnyObj = {}
 
@@ -185,5 +185,3 @@ function checkForm(form: Form, rules: rulesType, autoToast: boolean = true): { c
 checkForm.setCheckFormMessage = function (message: (msg: string) => void) {
   messageError = message
 }
-
-export default checkForm

@@ -3,7 +3,7 @@
  * @param {any} obj 需要拷贝的对象
  * @returns {any} 拷贝后的新对象
  */
-export default function deepClone(obj: any) {
+export function deepClone(obj: any) {
   // 存储已复制的对象及其副本的映射
   const copiedObjects = new Map()
   // 存储待处理的对象及其副本的队列

@@ -14,4 +14,4 @@ function devicePixelRatio(str?: string) {
   // 如果提供了字符串参数，则将其中的{dpr}占位符替换为设备的像素比的字符串表示
   return str.replaceAll('{dpr}', window.devicePixelRatio.toString() || '1')
 }
-export default devicePixelRatio
+export { devicePixelRatio }

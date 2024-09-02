@@ -4,7 +4,7 @@
  * @param getVal 可选的回调函数，用于获取每个元素的排序值，如果提供，则使用该函数比较元素
  * @returns 排序后的数组
  */
-export default function bubbleSort(arr: any[], getVal?: (item: any) => number): any[] {
+export function bubbleSort(arr: any[], getVal?: (item: any) => number): any[] {
   // 获取数组长度
   const length = arr.length
   // 遍历数组，进行冒泡排序

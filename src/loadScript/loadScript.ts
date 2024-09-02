@@ -1,4 +1,4 @@
-import isServer from '../isServer/isServer'
+import { isServer } from '../isServer/isServer'
 
 /**
  * 动态加载JavaScript文件
@@ -12,7 +12,7 @@ import isServer from '../isServer/isServer'
  *   - load: (可选) 加载方式，可以是'default'、'defer'或'async'，分别表示同步、延迟和异步加载，默认为'async'
  * @returns {Promise<boolean>} 返回一个Promise，解析为true表示加载成功，false表示加载失败
  */
-export default async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
+export async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
   // 如果在服务器端运行，则不加载脚本
   if (isServer) return false
 

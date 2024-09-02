@@ -1,5 +1,5 @@
 // 定义一个默认类，用于限制并发Promise的数量
-export default class LimitConcurrentPromise {
+export class LimitConcurrentPromise {
   // 定义一个列表，用于存储待执行的Promise任务
   private list: {
     promiseFn: Function

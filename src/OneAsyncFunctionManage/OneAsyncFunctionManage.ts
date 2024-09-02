@@ -1,5 +1,5 @@
 // 定义一个用于管理异步函数执行的类
-export default class OneAsyncFunctionManage {
+export class OneAsyncFunctionManage {
   // 初始化状态，表示是否正在执行函数
   private status = false
   // 初始化一个函数列表，列表中的函数返回一个Promise

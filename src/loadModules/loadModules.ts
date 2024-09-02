@@ -22,4 +22,4 @@ function loadModules<P = any>(modulesFn: () => Promise<any>, option?: OptionType
     .catch(() => {})
 }
 
-export default loadModules
+export { loadModules }

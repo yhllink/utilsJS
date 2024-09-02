@@ -75,6 +75,3 @@ export function unsubscribe(eventName: Event, callback: CallbackType) {
     events.delete(eventName)
   }
 }
-
-// 导出subscribe, publish, unsubscribe函数
-export default { subscribe, publish, unsubscribe }

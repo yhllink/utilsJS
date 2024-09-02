@@ -1,11 +1,11 @@
-import formatNumber from '../formatNumber/formatNumber'
+import { formatNumber } from '../formatNumber/formatNumber'
 
 /**
  * 计算金额
  * @param {string | number} money 金额
  * @returns {string} 处理后的金额
  */
-export default function formatAmount(
+export function formatAmount(
   money: string | number,
   options?: {
     auto?: boolean
