@@ -1,4 +1,4 @@
-import { number2Chinese } from '../number2Chinese/number2Chinese'
+import { number2Chinese } from '@/number2Chinese/number2Chinese'
 
 /**
  * 将数字转换为对应的中文星期

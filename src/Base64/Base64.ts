@@ -1,5 +1,5 @@
 // 导入用于编码 URI 组件的函数
-import { encodeURIZnCh } from '../encodeURIZnCh/encodeURIZnCh'
+import { encodeURIZnCh } from '@/encodeURIZnCh/encodeURIZnCh'
 
 /**
  * 将字符串编码为 Base64 格式

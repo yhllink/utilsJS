@@ -1,8 +1,10 @@
+import type { parse as LossLessParse } from '@/vendors/lossless-json'
+
 // 导入加载模块的函数
-import { loadModules } from '@/src/loadModules/loadModules'
+import { loadModules } from '@/loadModules/loadModules'
 
 // 定义一个全局的解析函数变量
-let parse: any
+let parse: typeof LossLessParse
 
 /**
  * 解析 json字符串 （解决大整数和小数精度丢失问题）
@@ -46,8 +48,8 @@ export const JSONParse = (function () {
   }
   JSONParse_noHas.init = async function () {
     try {
-      const res = await loadModules(() => import('../modules/lossless-json'))
-      parse = res.parse
+      const res = await loadModules<typeof LossLessParse>(() => import('@/vendors/lossless-json'), { modules: 'parse' })
+      parse = res
       return true
     } catch (error) {}
 

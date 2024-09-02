@@ -1,4 +1,4 @@
-import { formatNumber } from '../formatNumber/formatNumber'
+import { formatNumber } from '@/formatNumber/formatNumber'
 
 /**
  * 计算金额

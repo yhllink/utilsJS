@@ -1,4 +1,4 @@
-import { structure } from '../structure/structure'
+import { structure } from '@/structure/structure'
 
 // 定义表单类型为任意对象
 type Form = AnyObj

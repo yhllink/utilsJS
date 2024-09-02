@@ -1,4 +1,4 @@
-import { isServer } from '../isServer/isServer'
+import { isServer } from '@/isServer/isServer'
 
 /**
  * 动态加载JavaScript文件

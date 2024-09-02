@@ -13,7 +13,7 @@ const events = new Map<string, { callback: CallbackType; once: boolean }[]>()
  * @param once 是否仅触发一次，默认为false
  * @returns 取消订阅的函数
  */
-export function subscribe(eventName: Event, callback: CallbackType, once = false) {
+function subscribe(eventName: Event, callback: CallbackType, once = false) {
   // 如果事件列表中不存在该事件，则初始化一个空数组
   if (!events.has(eventName)) {
     events.set(eventName, [])
@@ -35,7 +35,7 @@ export function subscribe(eventName: Event, callback: CallbackType, once = false
  * @param eventName 事件名称
  * @param data 事件数据
  */
-export function publish(eventName: Event, data: any) {
+function publish(eventName: Event, data: any) {
   // 获取事件的订阅者列表
   const subscribers = events.get(eventName)
   if (!subscribers) return
@@ -60,7 +60,7 @@ export function publish(eventName: Event, data: any) {
  * @param eventName 事件名称
  * @param callback 需要取消的回调函数
  */
-export function unsubscribe(eventName: Event, callback: CallbackType) {
+function unsubscribe(eventName: Event, callback: CallbackType) {
   // 获取事件的订阅者列表
   const subscribers = events.get(eventName)
   if (!subscribers) return
@@ -75,3 +75,5 @@ export function unsubscribe(eventName: Event, callback: CallbackType) {
     events.delete(eventName)
   }
 }
+
+export const PubSub = { subscribe, publish, unsubscribe }

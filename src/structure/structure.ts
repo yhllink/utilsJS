@@ -1,4 +1,4 @@
-import { hasVal } from '../hasVal/hasVal'
+import { hasVal } from '@/hasVal/hasVal'
 
 /**
  * 根据给定的键获取对象中的数据项
