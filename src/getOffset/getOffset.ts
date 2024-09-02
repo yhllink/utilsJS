@@ -6,31 +6,45 @@
  * @param dom 要获取偏移量的DOM元素
  * @returns 返回一个包含元素上边距、左边距、宽度和高度的对象
  */
-export default function getOffset(dom: HTMLElement) {
-  // 初始化偏移量对象，用于存储计算结果
-  const offset: { w?: number; h?: number; t?: number; l?: number } = {}
+const getOffset = (function () {
+  // 如果DOM对象支持getBoundingClientRect方法
+  if (!!document.body.getBoundingClientRect) {
+    return function getOffset(dom: HTMLElement) {
+      // 初始化偏移量对象，用于存储计算结果
+      const offset: { w?: number; h?: number; t?: number; l?: number } = {}
 
-  // 检查是否传入了DOM对象，如果没有，则打印错误并返回空的偏移量对象
-  if (!dom) {
-    console.error('$getOffset 未传入dom对象')
-    return offset
-  }
+      // 检查是否传入了DOM对象，如果没有，则打印错误并返回空的偏移量对象
+      if (!dom) {
+        console.error('$getOffset 未传入dom对象')
+        return offset
+      }
 
-  // 如果DOM对象有getBoundingClientRect方法，则使用该方法获取偏移量
-  if (!!dom.getBoundingClientRect) {
-    const rect = dom.getBoundingClientRect()
-    offset.t = rect.top
-    offset.l = rect.left
-    offset.w = rect.width
-    offset.h = rect.height
-    return offset
+      const rect = dom.getBoundingClientRect()
+      offset.t = rect.top
+      offset.l = rect.left
+      offset.w = rect.width
+      offset.h = rect.height
+      return offset
+    }
   }
 
   // 如果DOM对象没有getBoundingClientRect方法，则使用offsetTop、offsetLeft等属性获取偏移量
-  offset.t = dom.offsetTop
-  offset.l = dom.offsetLeft
-  offset.h = dom.offsetHeight || dom.clientHeight
-  offset.w = dom.offsetWidth || dom.clientWidth
+  return function getOffset(dom: HTMLElement) {
+    // 初始化偏移量对象，用于存储计算结果
+    const offset: { w?: number; h?: number; t?: number; l?: number } = {}
 
-  return offset
-}
+    // 检查是否传入了DOM对象，如果没有，则打印错误并返回空的偏移量对象
+    if (!dom) {
+      console.error('$getOffset 未传入dom对象')
+      return offset
+    }
+
+    offset.t = dom.offsetTop
+    offset.l = dom.offsetLeft
+    offset.h = dom.offsetHeight || dom.clientHeight
+    offset.w = dom.offsetWidth || dom.clientWidth
+
+    return offset
+  }
+})()
+export default getOffset

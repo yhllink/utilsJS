@@ -25,4 +25,4 @@ package-lock.json
 /es
 /lib
 /dist
-/src/index.ts
+/src/export.ts
