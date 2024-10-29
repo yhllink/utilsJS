@@ -1,9 +1,13 @@
+import { isServer } from '@/isServer/isServer'
+
 /**
  * 获取URL和hash中的参数并转换为对象
  * @param {string} url 需要解析的URL，默认为当前页面URL
  * @returns {object} 解析后的参数对象
  */
-export function getQuery(url = window.location.href) {
+export function getQuery(url: string) {
+  url = url ?? (isServer ? '' : window.location.href)
+
   // 分割URL，获取查询字符串部分，如果没有查询字符串，默认为空字符串
   const search = url.split('?')[1] || ''
   // 分割URL，获取hash部分，如果没有hash，默认为空字符串

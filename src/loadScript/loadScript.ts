@@ -1,5 +1,3 @@
-import { isServer } from '@/isServer/isServer'
-
 /**
  * 动态加载JavaScript文件
  *
@@ -13,9 +11,6 @@ import { isServer } from '@/isServer/isServer'
  * @returns {Promise<boolean>} 返回一个Promise，解析为true表示加载成功，false表示加载失败
  */
 export async function loadScript({ id, src, load = 'async' }: { src: string; load?: 'default' | 'defer' | 'async'; id: string }) {
-  // 如果在服务器端运行，则不加载脚本
-  if (isServer) return false
-
   // 如果脚本已经加载，则直接返回成功
   if (window.document.querySelector('#' + id)) return true
 

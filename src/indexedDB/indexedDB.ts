@@ -1,3 +1,5 @@
+import { isServer } from '@/isServer/isServer'
+
 // 定义一个数组来保存数据库列表
 const dbList: { DBname: string; version: number }[] = []
 // 使用 WeakMap 来保存数据库实例
@@ -20,7 +22,7 @@ class IndexedDB {
 
   // 静态方法，判断当前环境是否支持 IndexedDB
   static hasDB(): boolean {
-    if (typeof window === 'undefined') return false
+    if (isServer) return false
     return !!window?.indexedDB
   }
 

@@ -1,5 +1,6 @@
 // 导入用于编码 URI 组件的函数
 import { encodeURIZnCh } from '@/encodeURIZnCh/encodeURIZnCh'
+import { isServer } from '@/isServer/isServer'
 
 /**
  * 将字符串编码为 Base64 格式
@@ -16,7 +17,7 @@ function btoa(str: string) {
   }
 
   // 如果在浏览器环境中且 window 对象的 btoa 方法存在，则使用 window.btoa 进行 Base64 编码
-  if (typeof window !== 'undefined' && typeof window.btoa !== 'undefined') {
+  if (!isServer && typeof window.btoa !== 'undefined') {
     return window.btoa(newStr)
   }
 }
@@ -33,7 +34,7 @@ function atob(str: string) {
   }
 
   // 如果在浏览器环境中且 window 对象的 atob 方法存在，则使用 window.atob 进行 Base64 解码
-  if (typeof window !== 'undefined' && typeof window.atob !== 'undefined') {
+  if (!isServer && typeof window.atob !== 'undefined') {
     return decodeURIComponent(window.atob(str))
   }
 }
