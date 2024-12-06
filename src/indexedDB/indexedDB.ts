@@ -73,6 +73,28 @@ class IndexedDB {
     return true
   }
 
+  // 检查并创建数据库的私有方法
+  private checkCreateObjectStore(DBdatabase: IDBDatabase) {
+    if (!DBdatabase?.objectStoreNames?.contains) return
+
+    // 如果数据库已存在
+    if (DBdatabase.objectStoreNames.contains(this.DBname)) return
+
+    const ObjectStore = ObjectStoreConfig[this.DBname]
+
+    // 创建person仓库(表) 主键
+    const Store = DBdatabase.createObjectStore(this.DBname, {
+      keyPath: ObjectStore.keyPath,
+    })
+
+    if (typeof ObjectStore.keys === 'object') {
+      for (const key in ObjectStore.keys) {
+        Store.createIndex(key, key, ObjectStore.keys[key])
+      }
+      return true
+    }
+  }
+
   // 获取或打开数据库的私有方法
   private getDB(): Promise<false | IDBDatabase> {
     return new Promise((resolve) => {
@@ -84,28 +106,16 @@ class IndexedDB {
       DB.onerror = function (event) {
         resolve(false)
       }
-      DB.onsuccess = function (event) {
-        that.DB = DB.result
-        resolve(that.DB)
-      }
       DB.onupgradeneeded = function (event: any) {
-        if (!event.target?.result?.objectStoreNames?.contains) return
+        that.checkCreateObjectStore(event.target?.result)
+      }
+      DB.onsuccess = function (event: any) {
+        that.DB = DB.result
 
-        // 如果数据库已存在
-        if (event.target.result.objectStoreNames.contains(that.DBname)) return
-
-        // @ts-ignore
-        const ObjectStore = ObjectStoreConfig[that.DBname]
-
-        // 创建person仓库(表) 主键
-        const Store = event.target.result.createObjectStore(that.DBname, {
-          keyPath: ObjectStore.keyPath,
-        })
-
-        if (typeof ObjectStore.keys === 'object') {
-          for (const key in ObjectStore.keys) {
-            Store.createIndex(key, key, ObjectStore.keys[key])
-          }
+        if (that.checkCreateObjectStore(event.target?.result)) {
+          resolve(that.DB)
+        } else {
+          resolve(false)
         }
       }
     })

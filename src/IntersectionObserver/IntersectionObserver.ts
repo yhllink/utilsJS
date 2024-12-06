@@ -19,11 +19,8 @@ class OneIntersectionObserver {
     this.threshold = threshold
   }
 
-  /**
-   * 初始化`IntersectionObserver`实例
-   * 只有在尚未初始化的情况下才会创建新的`IntersectionObserver`实例
-   */
-  private init() {
+  // 创建一个新的`IntersectionObserver`实例，用于观察元素与视口的交集情况
+  private windowHasIntersectionObserver() {
     this.IntersectionObserver = new window.IntersectionObserver(
       (entries) => {
         for (let i = 0, l = entries.length; i < l; i++) {
@@ -48,6 +45,40 @@ class OneIntersectionObserver {
       },
       { threshold: this.threshold }
     )
+  }
+
+  // 创建一个不支持`IntersectionObserver`的替代方案
+  private windowNoIntersectionObserver() {
+    // @ts-ignore
+    this.IntersectionObserver = {
+      observe: (target) => {
+        setTimeout(() => {
+          const targetHandle = this.map.get(target)
+          // 当元素没有相关方法时，跳过
+          if (!targetHandle) return
+
+          // 设置元素为可见状态
+          targetHandle.setShow(true)
+
+          // 如果是只观察一次，则移除对该元素的观察
+          if (targetHandle.once) this.unobserve(target)
+        }, 100)
+      },
+      unobserve() {},
+      disconnect() {},
+    }
+  }
+
+  /**
+   * 初始化`IntersectionObserver`实例
+   * 只有在尚未初始化的情况下才会创建新的`IntersectionObserver`实例
+   */
+  private init() {
+    if ('IntersectionObserver' in window) {
+      this.windowHasIntersectionObserver()
+    } else {
+      this.windowNoIntersectionObserver()
+    }
   }
 
   /**
@@ -80,3 +111,4 @@ class OneIntersectionObserver {
 }
 
 export { OneIntersectionObserver as IntersectionObserver }
+export default new OneIntersectionObserver()
