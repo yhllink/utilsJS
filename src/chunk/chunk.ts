@@ -5,7 +5,7 @@
  * @param size 每个子数组的大小
  * @returns 返回一个由分割后子数组组成的二维数组
  */
-export function chunk(arr: any[], size: number): any[][] {
+export function chunk<T = any>(arr: T[], size: number): T[][] {
   // 初始化一个空数组，用于存储分割后的子数组
   const result = []
 
