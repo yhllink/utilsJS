@@ -63,11 +63,11 @@ class IndexedDB {
   private checkParams(data: Object): boolean {
     const config = ObjectStoreConfig[this.DBname] || {}
 
-    const needKeys = new Set(Object.keys(config?.keys || {}))
-    const hasKeys = Object.keys(data || {})
+    const needKeys = Object.keys(config?.keys || {})
+    const hasKeys = new Set(Object.keys(data || {}))
 
-    for (let i = 0, l = hasKeys.length; i < l; i++) {
-      if (!needKeys.has(hasKeys[i])) return false
+    for (let i = 0, l = needKeys.length; i < l; i++) {
+      if (!hasKeys.has(needKeys[i])) return false
     }
 
     return true
@@ -78,7 +78,7 @@ class IndexedDB {
     if (!DBdatabase?.objectStoreNames?.contains) return
 
     // 如果数据库已存在
-    if (DBdatabase.objectStoreNames.contains(this.DBname)) return
+    if (DBdatabase.objectStoreNames.contains(this.DBname)) return true
 
     const ObjectStore = ObjectStoreConfig[this.DBname]
 
