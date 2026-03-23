@@ -50,51 +50,50 @@ export class Again {
 
   /**
    * 开始执行循环
-   * @returns {Promise<StopData>} 执行结果的Promise
+   * @returns {Promise<StopData>} 执行结果的 Promise
+   * 
+   * @example
+   * // 基本用法
+   * const again = new Again(async (index) => {
+   *   const result = await fetch('/api/data')
+   *   return result
+   * }, 5, 100)
+   * const res = await again.start()
+   * console.log(res.code) // 200 或 400
+   * 
+   * @example
+   * // 手动停止
+   * const again = new Again(async (index) => {
+   *   return await fetchData()
+   * }, 5, 100)
+   * again.start()
+   * setTimeout(() => again.stop(), 1000)
    */
   public start = (): Promise<StopData> => {
-    return new Promise((resolve) => {
-      if (!this.open) {
-        resolve(this.stopData)
-        return
-      }
-
-      this.count-- // 循环次数减一
-
-      // 运行函数获取返回值
-      const res = this.Fn(this.$count - this.count)
-
-      // 确保返回值为Promise
-      Promise.resolve(res)
-        .then((res) => {
-          if (!res) throw Error('$again 传入函数必须返回Promise')
-        })
-        .catch(() => {})
-
-      res
-        // 如果结果正确
-        .then((res: any) => {
-          resolve({ code: 200, message: '循环结束', data: res }) // 返回成功结果
-        })
-
-        // 如果结果不正确
-        .catch(async (err: any) => {
+    return new Promise(async (resolve) => {
+      // 迭代实现，消除递归调用栈溢出风险
+      while (this.open && this.count !== 0) {
+        this.count--
+        
+        try {
+          const res = await this.Fn(this.$count - this.count)
+          if (!res) throw new Error('$again 传入函数必须返回 Promise')
+          
+          resolve({ code: 200, message: '循环结束', data: res })
+          return
+        } catch (err) {
           // 达到循环次数限制
           if (this.count === 0) {
-            resolve({ code: 400, message: '循环次数已达上限', data: err }) // 返回失败结果
+            resolve({ code: 400, message: '循环次数已达上限', data: err })
             return
           }
-
-          // 等待设定的间隔时间
-          await new Promise((resolve) => {
-            setTimeout(() => {
-              resolve({})
-            }, this.time)
-          })
-
-          // 递归继续执行循环
-          resolve(this.start())
-        })
+          
+          // 等待间隔时间
+          await new Promise(r => setTimeout(r, this.time))
+        }
+      }
+      
+      resolve(this.stopData)
     })
   }
 }

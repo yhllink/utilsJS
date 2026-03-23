@@ -6,39 +6,41 @@ import { hasVal } from '@/hasVal/hasVal'
  * @param {object} data - 包含数据的对象
  * @param {any} defaultVal - 如果无法获取数据项时的默认值
  * @returns {any} - 获取到的数据项或默认值
+ * 
+ * @example
+ * // 基本用法
+ * const data = { user: { name: 'John' } }
+ * const name = structureItem('user.name', data, 'default')
+ * console.log(name) // 'John'
+ * 
+ * @example
+ * // 处理 null/undefined
+ * const data = { user: null }
+ * const name = structureItem('user.name', data, 'default')
+ * console.log(name) // 'default'
  */
 function structureItem(key: string, data: object, defaultVal: any) {
   // 如果键名为空，直接返回原始数据或默认值
   if (key === '') return data ?? defaultVal
 
+  // 使用安全的属性访问方式，避免 eval 安全漏洞
   try {
-    // 尝试使用window对象动态生成代码并执行，以获取嵌套键的值
-    const wind: { [key: string]: any } = window
-
-    // 生成一个随机的临时变量名
-    const name: string = `sdcsvasv${Math.floor(Math.random() * 10000)}`
-    // 将数据对象存储在临时变量中
-    wind['data_' + name] = data
-    // 通过eval动态执行代码，以访问嵌套的键
-    window.eval(`window.val_${name} = window.data_${name}.${key}`)
-    // 获取计算后的值
-    const value = wind['val_' + name]
-    // 清理临时变量，避免内存泄漏
-    wind['val_' + name] = null
-    wind['data_' + name] = null
-    return value
-  } catch (error) {}
-
-  try {
-    // 如果动态执行失败，尝试通过手动分割键名并逐级访问对象的方式来获取值
-    let val: { [key: string]: any } = data
+    let val: any = data
     const keys: string[] = key.split('.')
-    for (let i = 0, l = keys.length; i < l; i++) val = val[keys[i]]
+    
+    for (let i = 0, l = keys.length; i < l; i++) {
+      // 如果当前值为 null 或 undefined，直接返回默认值
+      if (val === null || val === undefined) {
+        return defaultVal
+      }
+      val = val[keys[i]]
+    }
+    
     return val
-  } catch (error) {}
-
-  // 如果所有尝试都失败，则返回默认值
-  return defaultVal
+  } catch (error) {
+    // 如果访问失败，返回默认值
+    return defaultVal
+  }
 }
 
 /**

@@ -59,20 +59,28 @@ function publish(eventName: Event, data: any) {
  * 取消订阅事件
  * @param eventName 事件名称
  * @param callback 需要取消的回调函数
+ * 
+ * @example
+ * // 基本用法
+ * const cancel = PubSub.subscribe('event', (data) => {
+ *   console.log(data)
+ * })
+ * cancel() // 取消订阅
+ * 
+ * @example
+ * // 直接取消
+ * PubSub.unsubscribe('event', callback)
  */
 function unsubscribe(eventName: Event, callback: CallbackType) {
-  // 获取事件的订阅者列表
   const subscribers = events.get(eventName)
   if (!subscribers) return
-
-  // 过滤掉需要取消的回调函数
-  const filteredSubscribers = subscribers.filter((subscriber) => subscriber.callback !== callback)
-  // 如果还有其他回调函数，则更新订阅者列表
-  if (filteredSubscribers.length > 0) {
-    events.set(eventName, filteredSubscribers)
-  } else {
-    // 如果没有其他回调函数，则删除该事件
-    events.delete(eventName)
+  
+  const index = subscribers.findIndex((subscriber) => subscriber.callback === callback)
+  if (index !== -1) {
+    subscribers.splice(index, 1)
+    if (subscribers.length === 0) {
+      events.delete(eventName)
+    }
   }
 }
 

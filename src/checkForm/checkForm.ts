@@ -2,8 +2,15 @@ import { structure } from '@/structure/structure'
 
 // 定义表单类型为任意对象
 type Form = AnyObj
-// 定义规则类型包括any、phone、email、telephone和函数类型
+// 定义规则类型包括 any、phone、email、telephone 和函数类型
 type RuleType = 'any' | 'phone' | 'email' | 'telephone' | Function
+
+// 预编译正则表达式，避免每次调用都重新编译
+const REGEX_PATTERNS = {
+  phone: /^(?:(?:\+|00)86)?1[3-9]\d{9}$/,
+  telephone: /^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$/,
+  email: /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+}
 
 // 定义验证规则接口
 interface Rule {
@@ -45,16 +52,14 @@ function checkFormItem(key: string, form: Form, data: any, rule: Rule): boolean 
   if (type === Array && minLength === undefined && maxLength === undefined) return !!(Array.isArray(data) && data.length)
 
   // phone 验证手机号
-  if (type === 'phone') return /^(?:(?:\+|00)86)?1[3-9]\d{9}$/.test(String(data))
+  if (type === 'phone') return REGEX_PATTERNS.phone.test(String(data))
 
   // telephone 验证座机号
-  if (type === 'telephone') return /^(?:(?:\d{3}-)?\d{8}|^(?:\d{4}-)?\d{7,8})(?:-\d+)?$/.test(String(data))
+  if (type === 'telephone') return REGEX_PATTERNS.telephone.test(String(data))
 
   // email 验证邮箱
   if (type === 'email') {
-    return /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(
-      data
-    )
+    return REGEX_PATTERNS.email.test(String(data))
   }
 
   // 长度验证

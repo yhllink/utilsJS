@@ -1,42 +1,52 @@
 type Option = { keysObj?: { [key: string]: string }; middle?: (key: string, val: string) => any; filter?: (item: AnyObj) => boolean }
 
 /**
- * 处理CSV数据并将其转换为对象数组
+ * 处理 CSV 数据并将其转换为对象数组
  *
- * @param csv 待处理的CSV字符串
+ * @param csv 待处理的 CSV 字符串
  * @param option 可选配置对象，包含键映射、中间处理函数和过滤器
  * @returns 返回处理后的对象数组
+ * 
+ * @example
+ * // 基本用法
+ * const csv = 'name,age\nJohn,25\nJane,30'
+ * const result = csvDataHandle(csv)
+ * console.log(result) // [{ name: 'John', age: '25' }, { name: 'Jane', age: '30' }]
+ * 
+ * @example
+ * // 使用配置
+ * const csv = 'name,age\nJohn,25\nJane,30'
+ * const result = csvDataHandle(csv, {
+ *   keysObj: { name: 'userName' },
+ *   middle: (key, val) => key === 'age' ? Number(val) : val
+ * })
  */
 export function csvDataHandle<T = AnyObj>(csv: string, option?: Option): T[] {
-  // 将CSV字符串按行分割成数组
-  const csvList = csv.split('\n')
-
-  // 创建一个空数组用于存储处理后的对象
-  const arr: AnyObj[] = []
-
-  // 提取CSV的第一行作为键名
-  const keys = csvList[0].split(',')
-  // 从第二行开始遍历CSV数据
-  for (let i = 1, l = csvList.length; i < l; i++) {
-    // 将当前行数据按逗号分割成数组
-    const item = csvList[i].split(',')
-
-    // 创建一个空对象用于存储键值对
+  const lines = csv.split('\n')
+  if (lines.length === 0) return []
+  
+  const keys = lines[0].split(',')
+  const result: T[] = []
+  
+  for (let i = 1; i < lines.length; i++) {
+    const values = lines[i].split(',')
+    if (values.length !== keys.length) continue
+    
     const obj: AnyObj = {}
-    // 遍历键名数组
-    for (let j = 0, l = keys.length; j < l; j++) {
-      // 获取当前键名，如果配置了键映射则使用映射后的键名
+    let hasValue = false
+    
+    for (let j = 0; j < keys.length; j++) {
       const key = option?.keysObj?.[keys[j]] || keys[j]
-      // 根据配置的中间处理函数处理值，如果没有配置则默认去除值的首尾空格
-      obj[key] = option?.middle ? option.middle(key, item[j]) : item[j].trim()
+      const value = option?.middle ? option.middle(key, values[j]) : values[j].trim()
+      
+      if (value !== '') hasValue = true
+      obj[key] = value
     }
-    // 如果配置了过滤器且当前对象不满足过滤器条件，则跳过当前对象
-    if (option?.filter) if (!option.filter(obj)) continue
-
-    // 如果对象有属性，则将其添加到结果数组中
-    if (Object.keys(obj).length) arr.push(obj)
+    
+    if (hasValue && (!option?.filter || option.filter(obj))) {
+      result.push(obj as T)
+    }
   }
-
-  // 将结果数组转换为指定类型并返回
-  return arr as T[]
+  
+  return result
 }

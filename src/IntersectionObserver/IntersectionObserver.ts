@@ -19,35 +19,29 @@ class OneIntersectionObserver {
     this.threshold = threshold
   }
 
-  // 创建一个新的`IntersectionObserver`实例，用于观察元素与视口的交集情况
+  // 创建一个新的 `IntersectionObserver` 实例，用于观察元素与视口的交集情况
   private windowHasIntersectionObserver() {
     this.IntersectionObserver = new window.IntersectionObserver(
       (entries) => {
-        for (let i = 0, l = entries.length; i < l; i++) {
-          const item = entries[i]
-
-          // 当元素不在文档中时，跳过
-          if (!item.target.isConnected) continue
-
-          // 当元素不与视口相交时，跳过
-          if (!item.isIntersecting) continue
-
-          const targetHandle = this.map.get(item.target)
-
+        entries.forEach((entry) => {
+          // 当元素不在文档中或不与视口相交时，跳过
+          if (!entry.target.isConnected || !entry.isIntersecting) return
+          
+          const targetHandle = this.map.get(entry.target)
           // 当元素没有相关方法时，跳过
-          if (!targetHandle) continue
-
+          if (!targetHandle) return
+          
           // 设置元素为可见状态
           targetHandle.setShow(true)
           // 如果是只观察一次，则移除对该元素的观察
-          if (targetHandle.once) this.unobserve(item.target)
-        }
+          if (targetHandle.once) this.unobserve(entry.target)
+        })
       },
       { threshold: this.threshold }
     )
   }
 
-  // 创建一个不支持`IntersectionObserver`的替代方案
+  // 创建一个不支持 `IntersectionObserver` 的替代方案
   private windowNoIntersectionObserver() {
     // @ts-ignore
     this.IntersectionObserver = {
@@ -64,8 +58,13 @@ class OneIntersectionObserver {
           if (targetHandle.once) this.unobserve(target)
         }, 100)
       },
-      unobserve() {},
-      disconnect() {},
+      unobserve: (target) => {
+        this.map.delete(target)
+      },
+      disconnect: () => {
+        this.map.clear()
+        this.IntersectionObserver = null
+      },
     }
   }
 

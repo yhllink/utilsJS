@@ -10,7 +10,10 @@
     "lib"
   ],
   "scripts": {
-    "build": "rollup -c"
+    "build": "rollup -c",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage"
   },
   "repository": {
     "type": "git",
@@ -31,10 +34,14 @@
     "@rollup/plugin-babel": "^6.0.4",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
+    "@types/jest": "^30.0.0",
     "@types/node": "^22.5.2",
+    "jest": "^30.3.0",
+    "jest-environment-jsdom": "^30.3.0",
     "rollup": "^4.21.1",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-typescript2": "^0.36.0",
+    "ts-jest": "^29.4.6",
     "ts-node": "^10.9.2",
     "yhl-explorer-js": "^0.0.7"
   },
