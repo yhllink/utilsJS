@@ -35,10 +35,203 @@
     "rollup": "^4.21.1",
     "rollup-plugin-dts": "^6.1.1",
     "rollup-plugin-typescript2": "^0.36.0",
+    "ts-node": "^10.9.2",
     "yhl-explorer-js": "^0.0.7"
   },
   "volta": {
     "node": "18.20.0",
     "npm": "9.9.3"
+  },
+  "exports": {
+    ".": {
+      "types": "./es/index.d.ts",
+      "import": "./es/index.js",
+      "require": "./lib/index.js"
+    },
+    "./es/Again/Again": {
+      "types": "./es/Again/Again.d.ts",
+      "import": "./es/Again/Again.js",
+      "require": "./lib/Again/Again.js"
+    },
+    "./es/Base64/Base64": {
+      "types": "./es/Base64/Base64.d.ts",
+      "import": "./es/Base64/Base64.js",
+      "require": "./lib/Base64/Base64.js"
+    },
+    "./es/IntersectionObserver/IntersectionObserver": {
+      "types": "./es/IntersectionObserver/IntersectionObserver.d.ts",
+      "import": "./es/IntersectionObserver/IntersectionObserver.js",
+      "require": "./lib/IntersectionObserver/IntersectionObserver.js"
+    },
+    "./es/JSONParse/JSONParse": {
+      "types": "./es/JSONParse/JSONParse.d.ts",
+      "import": "./es/JSONParse/JSONParse.js",
+      "require": "./lib/JSONParse/JSONParse.js"
+    },
+    "./es/LimitConcurrentPromise/LimitConcurrentPromise": {
+      "types": "./es/LimitConcurrentPromise/LimitConcurrentPromise.d.ts",
+      "import": "./es/LimitConcurrentPromise/LimitConcurrentPromise.js",
+      "require": "./lib/LimitConcurrentPromise/LimitConcurrentPromise.js"
+    },
+    "./es/OneAsyncFunctionManage/OneAsyncFunctionManage": {
+      "types": "./es/OneAsyncFunctionManage/OneAsyncFunctionManage.d.ts",
+      "import": "./es/OneAsyncFunctionManage/OneAsyncFunctionManage.js",
+      "require": "./lib/OneAsyncFunctionManage/OneAsyncFunctionManage.js"
+    },
+    "./es/PubSub/PubSub": {
+      "types": "./es/PubSub/PubSub.d.ts",
+      "import": "./es/PubSub/PubSub.js",
+      "require": "./lib/PubSub/PubSub.js"
+    },
+    "./es/bubbleSort/bubbleSort": {
+      "types": "./es/bubbleSort/bubbleSort.d.ts",
+      "import": "./es/bubbleSort/bubbleSort.js",
+      "require": "./lib/bubbleSort/bubbleSort.js"
+    },
+    "./es/checkForm/checkForm": {
+      "types": "./es/checkForm/checkForm.d.ts",
+      "import": "./es/checkForm/checkForm.js",
+      "require": "./lib/checkForm/checkForm.js"
+    },
+    "./es/chunk/chunk": {
+      "types": "./es/chunk/chunk.d.ts",
+      "import": "./es/chunk/chunk.js",
+      "require": "./lib/chunk/chunk.js"
+    },
+    "./es/classNames/classNames": {
+      "types": "./es/classNames/classNames.d.ts",
+      "import": "./es/classNames/classNames.js",
+      "require": "./lib/classNames/classNames.js"
+    },
+    "./es/csvDataHandle/csvDataHandle": {
+      "types": "./es/csvDataHandle/csvDataHandle.d.ts",
+      "import": "./es/csvDataHandle/csvDataHandle.js",
+      "require": "./lib/csvDataHandle/csvDataHandle.js"
+    },
+    "./es/deepClone/deepClone": {
+      "types": "./es/deepClone/deepClone.d.ts",
+      "import": "./es/deepClone/deepClone.js",
+      "require": "./lib/deepClone/deepClone.js"
+    },
+    "./es/devicePixelRatio/devicePixelRatio": {
+      "types": "./es/devicePixelRatio/devicePixelRatio.d.ts",
+      "import": "./es/devicePixelRatio/devicePixelRatio.js",
+      "require": "./lib/devicePixelRatio/devicePixelRatio.js"
+    },
+    "./es/encodeURIZnCh/encodeURIZnCh": {
+      "types": "./es/encodeURIZnCh/encodeURIZnCh.d.ts",
+      "import": "./es/encodeURIZnCh/encodeURIZnCh.js",
+      "require": "./lib/encodeURIZnCh/encodeURIZnCh.js"
+    },
+    "./es/formatAmount/formatAmount": {
+      "types": "./es/formatAmount/formatAmount.d.ts",
+      "import": "./es/formatAmount/formatAmount.js",
+      "require": "./lib/formatAmount/formatAmount.js"
+    },
+    "./es/formatNumber/formatNumber": {
+      "types": "./es/formatNumber/formatNumber.d.ts",
+      "import": "./es/formatNumber/formatNumber.js",
+      "require": "./lib/formatNumber/formatNumber.js"
+    },
+    "./es/getFunBack/getFunBack": {
+      "types": "./es/getFunBack/getFunBack.d.ts",
+      "import": "./es/getFunBack/getFunBack.js",
+      "require": "./lib/getFunBack/getFunBack.js"
+    },
+    "./es/getOffset/getOffset": {
+      "types": "./es/getOffset/getOffset.d.ts",
+      "import": "./es/getOffset/getOffset.js",
+      "require": "./lib/getOffset/getOffset.js"
+    },
+    "./es/getQuery/getQuery": {
+      "types": "./es/getQuery/getQuery.d.ts",
+      "import": "./es/getQuery/getQuery.js",
+      "require": "./lib/getQuery/getQuery.js"
+    },
+    "./es/getViewOffset/getViewOffset": {
+      "types": "./es/getViewOffset/getViewOffset.d.ts",
+      "import": "./es/getViewOffset/getViewOffset.js",
+      "require": "./lib/getViewOffset/getViewOffset.js"
+    },
+    "./es/handleUrl/handleUrl": {
+      "types": "./es/handleUrl/handleUrl.d.ts",
+      "import": "./es/handleUrl/handleUrl.js",
+      "require": "./lib/handleUrl/handleUrl.js"
+    },
+    "./es/hasVal/hasVal": {
+      "types": "./es/hasVal/hasVal.d.ts",
+      "import": "./es/hasVal/hasVal.js",
+      "require": "./lib/hasVal/hasVal.js"
+    },
+    "./es/indexedDB/indexedDB": {
+      "types": "./es/indexedDB/indexedDB.d.ts",
+      "import": "./es/indexedDB/indexedDB.js",
+      "require": "./lib/indexedDB/indexedDB.js"
+    },
+    "./es/isServer/isServer": {
+      "types": "./es/isServer/isServer.d.ts",
+      "import": "./es/isServer/isServer.js",
+      "require": "./lib/isServer/isServer.js"
+    },
+    "./es/loadModules/loadModules": {
+      "types": "./es/loadModules/loadModules.d.ts",
+      "import": "./es/loadModules/loadModules.js",
+      "require": "./lib/loadModules/loadModules.js"
+    },
+    "./es/loadScript/loadScript": {
+      "types": "./es/loadScript/loadScript.d.ts",
+      "import": "./es/loadScript/loadScript.js",
+      "require": "./lib/loadScript/loadScript.js"
+    },
+    "./es/mergeSort/mergeSort": {
+      "types": "./es/mergeSort/mergeSort.d.ts",
+      "import": "./es/mergeSort/mergeSort.js",
+      "require": "./lib/mergeSort/mergeSort.js"
+    },
+    "./es/number2Chinese/number2Chinese": {
+      "types": "./es/number2Chinese/number2Chinese.d.ts",
+      "import": "./es/number2Chinese/number2Chinese.js",
+      "require": "./lib/number2Chinese/number2Chinese.js"
+    },
+    "./es/number2ChineseWeek/number2ChineseWeek": {
+      "types": "./es/number2ChineseWeek/number2ChineseWeek.d.ts",
+      "import": "./es/number2ChineseWeek/number2ChineseWeek.js",
+      "require": "./lib/number2ChineseWeek/number2ChineseWeek.js"
+    },
+    "./es/prefixInteger/prefixInteger": {
+      "types": "./es/prefixInteger/prefixInteger.d.ts",
+      "import": "./es/prefixInteger/prefixInteger.js",
+      "require": "./lib/prefixInteger/prefixInteger.js"
+    },
+    "./es/quickSort/quickSort": {
+      "types": "./es/quickSort/quickSort.d.ts",
+      "import": "./es/quickSort/quickSort.js",
+      "require": "./lib/quickSort/quickSort.js"
+    },
+    "./es/random/random": {
+      "types": "./es/random/random.d.ts",
+      "import": "./es/random/random.js",
+      "require": "./lib/random/random.js"
+    },
+    "./es/sessionShareStorage/sessionShareStorage": {
+      "types": "./es/sessionShareStorage/sessionShareStorage.d.ts",
+      "import": "./es/sessionShareStorage/sessionShareStorage.js",
+      "require": "./lib/sessionShareStorage/sessionShareStorage.js"
+    },
+    "./es/stringSimilarity/stringSimilarity": {
+      "types": "./es/stringSimilarity/stringSimilarity.d.ts",
+      "import": "./es/stringSimilarity/stringSimilarity.js",
+      "require": "./lib/stringSimilarity/stringSimilarity.js"
+    },
+    "./es/structure/structure": {
+      "types": "./es/structure/structure.d.ts",
+      "import": "./es/structure/structure.js",
+      "require": "./lib/structure/structure.js"
+    },
+    "./es/worker/worker": {
+      "types": "./es/worker/worker.d.ts",
+      "import": "./es/worker/worker.js",
+      "require": "./lib/worker/worker.js"
+    }
   }
 }
