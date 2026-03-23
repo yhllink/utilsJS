@@ -3,7 +3,9 @@ import path, { dirname } from 'path'
 import typescript from 'rollup-plugin-typescript2'
 import { readDirSync, writeFileSync, dirHasSync, deletePathSync } from 'yhl-explorer-js'
 
-import pkg from './package.json' assert { type: 'json' }
+import { createRequire } from 'module'
+const require = createRequire(import.meta.url)
+const pkg = require('./package.json')
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
